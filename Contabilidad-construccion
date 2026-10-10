@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#173b2b">
+<title>Contabilidad de mi Construcción</title>
+<style>
+:root{--green:#173b2b;--light:#edf4ef;--gold:#d9ae57;--bg:#f5f6f4;--text:#202923}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+header{background:var(--green);color:white;padding:25px 18px 22px}
+header h1{font-size:25px;margin:0 0 7px}
+header p{margin:0;color:#d6e4d9;font-size:14px}
+main{max-width:850px;margin:auto;padding:16px}
+.card{background:white;border-radius:15px;padding:17px;margin-bottom:15px;box-shadow:0 2px 9px #0000000b}
+h2{font-size:18px;margin:0 0 15px}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 6px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #d8ded9;border-radius:9px;background:white;font-size:16px;color:var(--text)}
+button{border:0;border-radius:9px;padding:12px 15px;font-size:15px;font-weight:600;cursor:pointer}
+.primary{background:var(--green);color:white;width:100%;margin-top:14px}
+.secondary{background:var(--light);color:var(--green)}
+.danger{background:#fff0ed;color:#a42b20}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:15px}
+.stat{background:white;border-radius:13px;padding:14px;min-width:0}
+.stat small{display:block;color:#647168;font-size:12px;margin-bottom:8px}
+.stat strong{font-size:18px;overflow-wrap:anywhere}
+.stat.total{background:var(--green);color:white}
+.stat.total small{color:#d6e4d9}
+nav{display:flex;gap:8px;overflow:auto;padding:0 0 13px}
+nav button{white-space:nowrap;background:#e5eae6;color:#405147}
+nav button.active{background:var(--green);color:white}
+.item{border-top:1px solid #e8ece8;padding:13px 0;display:flex;gap:10px;justify-content:space-between;align-items:center}
+.item strong{display:block;font-size:14px}
+.item small{display:block;color:#66736a;margin-top:5px;font-size:12px}
+.amount{font-weight:700;white-space:nowrap;font-size:14px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.muted{color:#68746c;font-size:13px}
+.empty{text-align:center;padding:20px;color:#68746c}
+footer{text-align:center;padding:12px;color:#758078;font-size:12px}
+@media(min-width:600px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}header{padding-left:max(18px,calc((100% - 814px)/2))}}
+</style>
+</head>
+<body>
+<header>
+<h1>Contabilidad de mi Construcción</h1>
+<p>Control de gastos, materiales y mano de obra · COP ($)</p>
+</header>
+<main>
+<section class="card">
+<label for="project">Nombre de la obra</label>
+<input id="project" placeholder="Ej. Construcción apartamento Bogotá">
+<label for="budget">Presupuesto total (COP)</label>
+<input id="budget" type="number" min="0" placeholder="Ej. 50000000">
+<button class="primary" onclick="saveProject()">Guardar datos de la obra</button>
+</section>
+
+<div class="stats">
+<div class="stat total"><small>Presupuesto</small><strong id="sBudget">$0</strong></div>
+<div class="stat"><small>Total gastado</small><strong id="sSpent">$0</strong></div>
+<div class="stat"><small>Dinero disponible</small><strong id="sLeft">$0</strong></div>
+<div class="stat"><small>Materiales</small><strong id="sMaterials">$0</strong></div>
+<div class="stat"><small>Mano de obra</small><strong id="sLabor">$0</strong></div>
+<div class="stat"><small>Otros gastos</small><strong id="sOther">$0</strong></div>
+</div>
+
+<nav>
+<button class="active" onclick="showTab('entry',this)">Registrar gasto</button>
+<button onclick="showTab('history',this)">Historial</button>
+<button onclick="showTab('reports',this)">Informes</button>
+</nav>
+
+<section id="entry" class="card">
+<h2>Registrar movimiento</h2>
+<form id="expenseForm">
+<label for="date">Fecha</label>
+<input id="date" type="date" required>
+<label for="description">Descripción del gasto</label>
+<input id="description" maxlength="120" placeholder="Ej. Compra de cemento" required>
+<div class="row">
+<div>
+<label for="category">Categoría</label>
+<select id="category">
+<option>Materiales</option>
+<option>Mano de obra</option>
+<option>Transporte</option>
+<option>Herramientas</option>
+<option>Permisos</option>
+<option>Otros gastos</option>
+</select>
+</div>
+<div>
+<label for="amount">Valor (COP)</label>
+<input id="amount" type="number" min="1" step="1" placeholder="150000" required>
+</div>
+</div>
+<div class="row">
+<div>
+<label for="quantity">Cantidad (opcional)</label>
+<input id="quantity" type="number" min="0" step="any" placeholder="Ej. 20">
+</div>
+<div>
+<label for="unit">Unidad</label>
+<select id="unit">
+<option>Unidad</option><option>Bulto</option><option>Metro</option>
+<option>Metro cuadrado</option><option>Metro cúbico</option>
+<option>Kilo</option><option>Litro</option><option>Día</option>
+<option>Jornal</option><option>Global</option>
+</select>
+</div>
+</div>
+<label for="person">Proveedor o trabajador (opcional)</label>
+<input id="person" maxlength="100" placeholder="Nombre">
+<label for="notes">Observaciones (opcional)</label>
+<textarea id="notes" rows="2" maxlength="500" placeholder="Detalle del pago o compra"></textarea>
+<button class="primary" type="submit">Guardar movimiento</button>
+</form>
+</section>
+
+<section id="history" class="card" hidden>
+<h2>Historial de movimientos</h2>
+<input id="search" placeholder="Buscar por descripción o proveedor" oninput="renderHistory()">
+<label for="filter">Filtrar categoría</label>
+<select id="filter" onchange="renderHistory()">
+<option value="">Todas las categorías</option>
+<option>Materiales</option><option>Mano de obra</option>
+<option>Transporte</option><option>Herramientas</option>
+<option>Permisos</option><option>Otros gastos</option>
+</select>
+<div id="historyList"></div>
+</section>
+
+<section id="reports" class="card" hidden>
+<h2>Resumen por categoría</h2>
+<div id="reportList"></div>
+<button class="secondary" style="width:100%;margin-top:15px" onclick="exportCSV()">Exportar movimientos a CSV</button>
+<p class="muted">El archivo CSV se puede abrir en Excel o Numbers.</p>
+<button class="secondary" style="width:100%" onclick="backup()">Descargar copia de seguridad</button>
+<label for="restore">Restaurar copia de seguridad</label>
+<input id="restore" type="file" accept=".json,application/json" onchange="restoreBackup(event)">
+<p class="muted">Guarde copias periódicas de sus datos.</p>
+</section>
+<footer>Control de obra · Valores expresados en pesos colombianos</footer>
+</main>
+
+<script>
+const KEY='contabilidadConstruccionV1';
+let data={project:'',budget:0,expenses:[]};
+const $=id=>document.getElementById(id);
+const money=n=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(n||0);
+function load(){
+try{const saved=localStorage.getItem(KEY);if(saved)data=JSON.parse(saved)}catch(e){}
+if(!data||!Array.isArray(data.expenses))data={project:'',budget:0,expenses:[]};
+$('project').value=data.project||'';
+$('budget').value=data.budget||'';
+$('date').value=new Date().toLocaleDateString('en-CA');
+refresh();
+}
+function persist(){localStorage.setItem(KEY,JSON.stringify(data));refresh()}
+function saveProject(){
+data.project=$('project').value.trim();
+data.budget=Math.max(0,Number($('budget').value)||0);
+persist();
+alert('Datos de la obra guardados.');
+}
+$('expenseForm').addEventListener('submit',e=>{
+e.preventDefault();
+const amount=Number($('amount').value);
+if(!Number.isFinite(amount)||amount<=0){alert('Ingrese un valor válido.');return}
+data.expenses.unshift({
+id:Date.now().toString()+Math.random().toString(16).slice(2),
+date:$('date').value,
+description:$('description').value.trim(),
+category:$('category').value,
+amount,
+quantity:Number($('quantity').value)||0,
+unit:$('unit').value,
+person:$('person').value.trim(),
+notes:$('notes').value.trim()
+});
+persist();
+e.target.reset();
+$('date').value=new Date().toLocaleDateString('en-CA');
+$('unit').value='Unidad';
+alert('Movimiento guardado correctamente.');
+});
+function refresh(){
+const total=data.expenses.reduce((s,x)=>s+Number(x.amount||0),0);
+const sum=cat=>data.expenses.filter(x=>x.category===cat).reduce((s,x)=>s+Number(x.amount||0),0);
+$('sBudget').textContent=money(data.budget);
+$('sSpent').textContent=money(total);
+$('sLeft').textContent=money(data.budget-total);
+$('sMaterials').textContent=money(sum('Materiales'));
+$('sLabor').textContent=money(sum('Mano de obra'));
+$('sOther').textContent=money(data.expenses.filter(x=>!['Materiales','Mano de obra'].includes(x.category)).reduce((s,x)=>s+Number(x.amount||0),0));
+renderHistory();renderReports();
+}
+function showTab(id,button){
+['entry','history','reports'].forEach(x=>$(x).hidden=x!==id);
+document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
+button.classList.add('active');
+}
+function renderHistory(){
+if(!$('historyList'))return;
+const term=($('search').value||'').toLowerCase();
+const cat=$('filter').value;
+const list=data.expenses.filter(x=>(!cat||x.category===cat)&&(`${x.description} ${x.person} ${x.notes}`.toLowerCase().includes(term)));
+$('historyList').innerHTML=list.length?list.map(x=>`
+<div class="item">
+<div style="min-width:0">
+<strong>${esc(x.description)}</strong>
+<small>${esc(x.date)} · ${esc(x.category)}${x.person?' · '+esc(x.person):''}</small>
+${x.quantity?`<small>${esc(x.quantity)} ${esc(x.unit)}</small>`:''}
+${x.notes?`<small>${esc(x.notes)}</small>`:''}
+</div>
+<div style="text-align:right">
+<div class="amount">${money(x.amount)}</div>
+<button class="danger" style="margin-top:8px;padding:7px 9px" onclick="removeExpense('${x.id}')">Eliminar</button>
+</div></div>`).join(''):'<div class="empty">No hay movimientos para mostrar.</div>';
+}
+function renderReports(){
+const cats=['Materiales','Mano de obra','Transporte','Herramientas','Permisos','Otros gastos'];
+$('reportList').innerHTML=cats.map(c=>{
+const total=data.expenses.filter(x=>x.category===c).reduce((s,x)=>s+Number(x.amount||0),0);
+return `<div class="item"><strong>${c}</strong><span class="amount">${money(total)}</span></div>`;
+}).join('');
+}
+function removeExpense(id){
+if(!confirm('¿Desea eliminar este movimiento?'))return;
+data.expenses=data.expenses.filter(x=>x.id!==id);persist();
+}
+function esc(s){
+return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function exportCSV(){
+const rows=[['Fecha','Descripción','Categoría','Valor COP','Cantidad','Unidad','Proveedor o trabajador','Observaciones'],...data.expenses.map(x=>[x.date,x.description,x.category,x.amount,x.quantity,x.unit,x.person,x.notes])];
+const csv='\uFEFF'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n');
+download(new Blob([csv],{type:'text/csv;charset=utf-8;'}),'movimientos-construccion.csv');
+}
+function backup(){
+download(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),'copia-contabilidad-construccion.json');
+}
+function download(blob,name){
+const url=URL.createObjectURL(blob),a=document.createElement('a');
+a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function restoreBackup(event){
+const file=event.target.files[0];if(!file)return;
+const reader=new FileReader();
+reader.onload=()=>{
+try{
+const d=JSON.parse(reader.result);
+if(!d||!Array.isArray(d.expenses)||typeof d.budget!=='number')throw Error();
+if(!confirm('La copia reemplazará los datos actuales. ¿Continuar?'))return;
+data={project:String(d.project||''),budget:Math.max(0,d.budget),expenses:d.expenses};
+persist();$('project').value=data.project;$('budget').value=data.budget;
+alert('Copia restaurada.');
+}catch(e){alert('El archivo no es una copia válida de esta aplicación.')}
+finally{event.target.value=''}
+};
+reader.readAsText(file);
+}
+load();
+</script>
+</body>
+</html>
