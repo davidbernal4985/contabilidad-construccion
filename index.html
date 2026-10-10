@@ -3,150 +3,166 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#173b2b">
-<title>Contabilidad de mi Construcción</title>
+<meta name="theme-color" content="#111111">
+<title>BERNAL Construcción</title>
 <style>
-:root{--green:#173b2b;--light:#edf4ef;--gold:#d9ae57;--bg:#f5f6f4;--text:#202923}
+:root{--black:#111;--panel:#1b1b1b;--gold:#d6ad55;--gold2:#f0d58e;--bg:#101010;--text:#f5f2e9;--muted:#b8b2a4;--line:#38342b;--danger:#6e2925}
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
-header{background:var(--green);color:white;padding:25px 18px 22px}
-header h1{font-size:25px;margin:0 0 7px}
-header p{margin:0;color:#d6e4d9;font-size:14px}
-main{max-width:850px;margin:auto;padding:16px}
-.card{background:white;border-radius:15px;padding:17px;margin-bottom:15px;box-shadow:0 2px 9px #0000000b}
-h2{font-size:18px;margin:0 0 15px}
-label{display:block;font-size:13px;font-weight:600;margin:12px 0 6px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #d8ded9;border-radius:9px;background:white;font-size:16px;color:var(--text)}
-button{border:0;border-radius:9px;padding:12px 15px;font-size:15px;font-weight:600;cursor:pointer}
-.primary{background:var(--green);color:white;width:100%;margin-top:14px}
-.secondary{background:var(--light);color:var(--green)}
-.danger{background:#fff0ed;color:#a42b20}
+header{background:linear-gradient(135deg,#090909,#242017);border-bottom:1px solid #6f572b;padding:25px 18px}
+.brand{max-width:900px;margin:auto;display:flex;align-items:center;gap:13px}
+.logo{width:52px;height:52px;border:2px solid var(--gold);border-radius:12px;display:grid;place-items:center;color:var(--gold);font-weight:900;font-size:22px;letter-spacing:-2px}
+header h1{font-size:24px;margin:0 0 5px;color:var(--gold2);letter-spacing:.5px}
+header p{margin:0;color:#d1c8b5;font-size:13px}
+main{max-width:900px;margin:auto;padding:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:17px;margin-bottom:15px;box-shadow:0 5px 18px #0005}
+h2{font-size:18px;margin:0 0 14px;color:var(--gold2)}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 6px;color:#e8dfcd}
+input,select,textarea{width:100%;padding:12px;border:1px solid #494338;border-radius:9px;background:#101010;font-size:16px;color:var(--text)}
+input::placeholder,textarea::placeholder{color:#807969}
+button{border:1px solid transparent;border-radius:9px;padding:12px 15px;font-size:15px;font-weight:700;cursor:pointer}
+.primary{background:var(--gold);color:#17130a;width:100%;margin-top:14px}
+.secondary{background:#29251d;color:var(--gold2);border-color:#5d4b2a}
+.danger{background:#3a1d1b;color:#ffb8af;border-color:#6e2925}
 .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:15px}
-.stat{background:white;border-radius:13px;padding:14px;min-width:0}
-.stat small{display:block;color:#647168;font-size:12px;margin-bottom:8px}
-.stat strong{font-size:18px;overflow-wrap:anywhere}
-.stat.total{background:var(--green);color:white}
-.stat.total small{color:#d6e4d9}
+.stat{background:#1b1b1b;border:1px solid var(--line);border-radius:13px;padding:14px;min-width:0}
+.stat small{display:block;color:var(--muted);font-size:12px;margin-bottom:8px}
+.stat strong{font-size:18px;overflow-wrap:anywhere;color:var(--gold2)}
+.stat.total{background:#292217;border-color:#8a6a30}
+.stat.total small{color:#e3d1a9}
 nav{display:flex;gap:8px;overflow:auto;padding:0 0 13px}
-nav button{white-space:nowrap;background:#e5eae6;color:#405147}
-nav button.active{background:var(--green);color:white}
-.item{border-top:1px solid #e8ece8;padding:13px 0;display:flex;gap:10px;justify-content:space-between;align-items:center}
+nav button{white-space:nowrap;background:#25231f;color:#d0c7b5;border-color:#403a2f}
+nav button.active{background:var(--gold);color:#17130a}
+.item{border-top:1px solid var(--line);padding:13px 0;display:flex;gap:10px;justify-content:space-between;align-items:center}
 .item strong{display:block;font-size:14px}
-.item small{display:block;color:#66736a;margin-top:5px;font-size:12px}
-.amount{font-weight:700;white-space:nowrap;font-size:14px}
+.item small{display:block;color:var(--muted);margin-top:5px;font-size:12px}
+.amount{font-weight:700;white-space:nowrap;font-size:14px;color:var(--gold2)}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.muted{color:#68746c;font-size:13px}
-.empty{text-align:center;padding:20px;color:#68746c}
-.notice{padding:10px 12px;border-radius:9px;background:#edf4ef;color:#173b2b;font-size:13px;overflow-wrap:anywhere}
-footer{text-align:center;padding:12px;color:#758078;font-size:12px}
-@media(min-width:600px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}header{padding-left:max(18px,calc((100% - 814px)/2))}}
+.muted{color:var(--muted);font-size:13px}
+.empty{text-align:center;padding:20px;color:var(--muted)}
+.notice{padding:10px 12px;border-radius:9px;background:#282318;color:var(--gold2);border:1px solid #5d4b2a;font-size:13px;overflow-wrap:anywhere}
+footer{text-align:center;padding:12px;color:#8f8879;font-size:12px}
+[hidden]{display:none!important}
+@media(min-width:600px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style>
 </head>
 <body>
 <header>
-<h1>Contabilidad de mi Construcción</h1>
-<p>Control compartido de gastos, materiales y mano de obra · COP ($)</p>
+  <div class="brand">
+    <div class="logo">BC</div>
+    <div>
+      <h1>BERNAL Construcción</h1>
+      <p>Control de obra · Gastos, materiales y mano de obra · COP</p>
+    </div>
+  </div>
 </header>
 <main>
 <section id="loginCard" class="card">
-<h2>Acceso del equipo</h2>
-<p class="muted">Inicie sesión para consultar y registrar los gastos compartidos de la obra.</p>
-<form id="loginForm">
-<label for="email">Correo electrónico</label>
-<input id="email" type="email" autocomplete="username" required placeholder="correo@ejemplo.com">
-<label for="password">Contraseña</label>
-<input id="password" type="password" autocomplete="current-password" required>
-<button class="primary" type="submit">Iniciar sesión</button>
-</form>
-<p id="loginMessage" class="muted" role="status"></p>
+  <h2>Acceso del equipo</h2>
+  <p class="muted">Inicie sesión para consultar y registrar la información compartida de la obra.</p>
+  <form id="loginForm">
+    <label for="email">Correo electrónico</label>
+    <input id="email" type="email" autocomplete="username" required placeholder="correo@ejemplo.com">
+    <label for="password">Contraseña</label>
+    <input id="password" type="password" autocomplete="current-password" required>
+    <button class="primary" type="submit">Iniciar sesión</button>
+  </form>
+  <p id="loginMessage" class="muted" role="status"></p>
 </section>
 
 <section id="appArea" hidden>
-<section class="card">
-<div class="row" style="align-items:center">
-<div><strong id="signedInAs"></strong><div class="muted">Sesión activa</div></div>
-<button class="secondary" onclick="signOut()">Cerrar sesión</button>
-</div>
-<div id="status" class="notice" style="margin-top:12px">Conectando con la base de datos…</div>
-<label for="project">Nombre de la obra (solo se guarda en este dispositivo)</label>
-<input id="project" placeholder="Ej. Construcción apartamento Bogotá">
-<label for="budget">Presupuesto total (COP, solo este dispositivo)</label>
-<input id="budget" type="number" min="0" placeholder="Ej. 50000000">
-<button class="secondary" style="width:100%;margin-top:10px" onclick="saveProject()">Guardar datos de la obra</button>
-</section>
+  <section class="card">
+    <div class="row" style="align-items:center">
+      <div>
+        <strong id="signedInAs"></strong>
+        <div class="muted">Sesión activa</div>
+      </div>
+      <button class="secondary" onclick="signOut()">Cerrar sesión</button>
+    </div>
+    <div id="status" class="notice" style="margin-top:12px">Conectando con la base de datos…</div>
+    <label for="project">Nombre de la obra</label>
+    <input id="project" maxlength="150" placeholder="Ej. Construcción apartamento Bogotá">
+    <label for="budget">Presupuesto total (COP)</label>
+    <input id="budget" type="number" min="0" step="1" placeholder="Ej. 50000000">
+    <button class="primary" style="width:100%" onclick="saveProject()">Guardar datos compartidos de la obra</button>
+    <p class="muted">El nombre y el presupuesto se guardan en la base de datos compartida para que el equipo los vea desde otros dispositivos.</p>
+  </section>
 
-<div class="stats">
-<div class="stat total"><small>Presupuesto</small><strong id="sBudget">$0</strong></div>
-<div class="stat"><small>Total gastado</small><strong id="sSpent">$0</strong></div>
-<div class="stat"><small>Dinero disponible</small><strong id="sLeft">$0</strong></div>
-<div class="stat"><small>Materiales</small><strong id="sMaterials">$0</strong></div>
-<div class="stat"><small>Mano de obra</small><strong id="sLabor">$0</strong></div>
-<div class="stat"><small>Otros gastos</small><strong id="sOther">$0</strong></div>
-</div>
+  <div class="stats">
+    <div class="stat total"><small>Presupuesto</small><strong id="sBudget">$0</strong></div>
+    <div class="stat"><small>Total gastado</small><strong id="sSpent">$0</strong></div>
+    <div class="stat"><small>Dinero disponible</small><strong id="sLeft">$0</strong></div>
+    <div class="stat"><small>Materiales</small><strong id="sMaterials">$0</strong></div>
+    <div class="stat"><small>Mano de obra</small><strong id="sLabor">$0</strong></div>
+    <div class="stat"><small>Otros gastos</small><strong id="sOther">$0</strong></div>
+  </div>
 
-<nav>
-<button class="active" onclick="showTab('entry',this)">Registrar gasto</button>
-<button onclick="showTab('history',this)">Historial</button>
-<button onclick="showTab('reports',this)">Informes y copias</button>
-</nav>
+  <nav>
+    <button class="active" onclick="showTab('entry',this)">Registrar gasto</button>
+    <button onclick="showTab('history',this)">Historial</button>
+    <button onclick="showTab('reports',this)">Informes y copias</button>
+  </nav>
 
-<section id="entry" class="card">
-<h2>Registrar movimiento</h2>
-<form id="expenseForm">
-<label for="date">Fecha</label>
-<input id="date" type="date" required>
-<label for="description">Descripción del gasto</label>
-<input id="description" maxlength="120" placeholder="Ej. Pago de jornal o compra de cemento" required>
-<div class="row">
-<div>
-<label for="category">Categoría</label>
-<select id="category">
-<option value="Materiales">Materiales</option>
-<option value="Personal">Mano de obra / Personal</option>
-<option value="Transporte">Transporte</option>
-<option value="Herramientas">Herramientas</option>
-<option value="Otros">Otros gastos</option>
-</select>
-</div>
-<div>
-<label for="amount">Valor (COP)</label>
-<input id="amount" type="number" min="1" step="1" placeholder="150000" required>
-</div>
-</div>
-<label for="worker">Nombre del trabajador (si aplica)</label>
-<input id="worker" maxlength="120" placeholder="Nombre y apellido">
-<label for="days">Días trabajados (si aplica)</label>
-<input id="days" type="number" min="0" step="0.5" placeholder="Ej. 1 o 2.5">
-<label for="notes">Observaciones (opcional)</label>
-<textarea id="notes" rows="2" maxlength="500" placeholder="Detalle del pago o compra"></textarea>
-<button class="primary" type="submit">Guardar movimiento compartido</button>
-</form>
-</section>
+  <section id="entry" class="card">
+    <h2>Registrar movimiento</h2>
+    <form id="expenseForm">
+      <label for="date">Fecha</label>
+      <input id="date" type="date" required>
+      <label for="description">Descripción del gasto</label>
+      <input id="description" maxlength="120" placeholder="Ej. Pago de jornal o compra de cemento" required>
+      <div class="row">
+        <div>
+          <label for="category">Categoría</label>
+          <select id="category">
+            <option value="Materiales">Materiales</option>
+            <option value="Personal">Mano de obra / Personal</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Herramientas">Herramientas</option>
+            <option value="Otros">Otros gastos</option>
+          </select>
+        </div>
+        <div>
+          <label for="amount">Valor (COP)</label>
+          <input id="amount" type="number" min="1" step="1" placeholder="150000" required>
+        </div>
+      </div>
+      <label for="worker">Nombre del trabajador (si aplica)</label>
+      <input id="worker" maxlength="120" placeholder="Nombre y apellido">
+      <label for="days">Días trabajados (si aplica)</label>
+      <input id="days" type="number" min="0" step="0.5" placeholder="Ej. 1 o 2.5">
+      <label for="notes">Observaciones (opcional)</label>
+      <textarea id="notes" rows="2" maxlength="500" placeholder="Detalle del pago o compra"></textarea>
+      <button class="primary" type="submit">Guardar movimiento compartido</button>
+    </form>
+  </section>
 
-<section id="history" class="card" hidden>
-<h2>Historial de movimientos</h2>
-<input id="search" placeholder="Buscar por descripción o trabajador" oninput="renderHistory()">
-<label for="filter">Filtrar categoría</label>
-<select id="filter" onchange="renderHistory()">
-<option value="">Todas las categorías</option>
-<option value="Materiales">Materiales</option><option value="Personal">Mano de obra / Personal</option>
-<option value="Transporte">Transporte</option><option value="Herramientas">Herramientas</option><option value="Otros">Otros gastos</option>
-</select>
-<div id="historyList"></div>
-</section>
+  <section id="history" class="card" hidden>
+    <h2>Historial de movimientos</h2>
+    <input id="search" placeholder="Buscar por descripción o trabajador" oninput="renderHistory()">
+    <label for="filter">Filtrar categoría</label>
+    <select id="filter" onchange="renderHistory()">
+      <option value="">Todas las categorías</option>
+      <option value="Materiales">Materiales</option>
+      <option value="Personal">Mano de obra / Personal</option>
+      <option value="Transporte">Transporte</option>
+      <option value="Herramientas">Herramientas</option>
+      <option value="Otros">Otros gastos</option>
+    </select>
+    <div id="historyList"></div>
+  </section>
 
-<section id="reports" class="card" hidden>
-<h2>Resumen por categoría</h2>
-<div id="reportList"></div>
-<button class="secondary" style="width:100%;margin-top:15px" onclick="exportCSV()">Exportar movimientos a CSV</button>
-<p class="muted">El archivo CSV se puede abrir en Excel o Numbers.</p>
-<button class="secondary" style="width:100%" onclick="backup()">Descargar copia de seguridad</button>
-<label for="restore">Restaurar copia de seguridad</label>
-<input id="restore" type="file" accept=".json,application/json" onchange="restoreBackup(event)">
-<p class="muted">La restauración agrega los movimientos de la copia a la base de datos; no reemplaza ni borra los movimientos compartidos.</p>
+  <section id="reports" class="card" hidden>
+    <h2>Resumen por categoría</h2>
+    <div id="reportList"></div>
+    <button class="secondary" style="width:100%;margin-top:15px" onclick="exportCSV()">Exportar movimientos a CSV</button>
+    <p class="muted">El archivo CSV se puede abrir en Excel o Numbers.</p>
+    <button class="secondary" style="width:100%" onclick="backup()">Descargar copia de seguridad</button>
+    <label for="restore">Restaurar copia de seguridad</label>
+    <input id="restore" type="file" accept=".json,application/json" onchange="restoreBackup(event)">
+    <p class="muted">La restauración agrega los movimientos de la copia a la base de datos; no reemplaza ni borra los movimientos compartidos.</p>
+  </section>
 </section>
-</section>
-<footer>Control de obra · Valores expresados en pesos colombianos</footer>
+<footer>BERNAL Construcción · Valores expresados en pesos colombianos</footer>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -156,116 +172,268 @@ const SUPABASE_KEY='sb_publishable_3Y3sNRhDdAdmuHd3PdCHOw_jwVob1mb';
 const client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
 const money=n=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(n||0);
-let expenses=[];
-let currentUser=null;
-let projectData={project:'',budget:0};
+let expenses=[],currentUser=null,projectData={project:'',budget:0};
+
 function setStatus(message){$('status').textContent=message}
-function localDate(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function saveProject(){
- projectData.project=$('project').value.trim();
- projectData.budget=Math.max(0,Number($('budget').value)||0);
- try{localStorage.setItem('contabilidadConstruccionProjectV1',JSON.stringify(projectData))}catch(e){}
- refresh();
- alert('Datos guardados en este dispositivo. El presupuesto no se comparte todavía con los demás usuarios.');
+function localDate(){
+  const d=new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
-function loadProject(){
- try{const d=JSON.parse(localStorage.getItem('contabilidadConstruccionProjectV1')||'{}');projectData={project:d.project||'',budget:Number(d.budget)||0}}catch(e){}
- $('project').value=projectData.project;$('budget').value=projectData.budget||'';
+function esc(s){
+  return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-async function signIn(event){
- event.preventDefault();$('loginMessage').textContent='Iniciando sesión…';
- const {data,error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
- if(error){$('loginMessage').textContent='No se pudo iniciar sesión. Verifique el correo y la contraseña.';return}
- $('loginMessage').textContent='';await showApp(data.user);
-}
-async function signOut(){await client.auth.signOut();currentUser=null;expenses=[];$('appArea').hidden=true;$('loginCard').hidden=false;$('password').value='';}
-async function showApp(user){
- currentUser=user;$('loginCard').hidden=true;$('appArea').hidden=false;
- $('signedInAs').textContent=user.email||'Usuario del equipo';
- loadProject();$('date').value=localDate();
- await loadExpenses();
-}
-async function loadExpenses(){
- setStatus('Cargando gastos compartidos…');
- const {data,error}=await client.from('gastos').select('id,fecha,descripcion,categoria,valor,registrado_por,observaciones,nombre_trabajador,dias_trabajados,created_at').order('fecha',{ascending:false}).order('created_at',{ascending:false});
- if(error){setStatus('No se pudieron cargar los gastos: '+error.message+' . Revise las políticas RLS y permisos en Supabase.');return}
- expenses=(data||[]).map(x=>({id:x.id,date:x.fecha,description:x.descripcion,category:x.categoria,amount:Number(x.valor)||0,registeredBy:x.registrado_por||'',notes:x.observaciones||'',worker:x.nombre_trabajador||'',days:Number(x.dias_trabajados)||0}));
- setStatus('Base de datos conectada. Los movimientos que registre el equipo aparecerán aquí.');
- refresh();
-}
-$('loginForm').addEventListener('submit',signIn);
-$('expenseForm').addEventListener('submit',async event=>{
- event.preventDefault();
- if(!currentUser){alert('Inicie sesión primero.');return}
- const amount=Number($('amount').value),days=$('days').value===''?0:Number($('days').value);
- if(!Number.isFinite(amount)||amount<=0){alert('Ingrese un valor válido.');return}
- if(!Number.isFinite(days)||days<0){alert('Los días trabajados no pueden ser negativos.');return}
- const row={fecha:$('date').value,descripcion:$('description').value.trim(),categoria:$('category').value,valor:amount,registrado_por:currentUser.email||'equipo',observaciones:$('notes').value.trim()||null,nombre_trabajador:$('worker').value.trim()||null,dias_trabajados:days};
- const button=event.submitter; if(button){button.disabled=true;button.textContent='Guardando…'}
- const {error}=await client.from('gastos').insert(row);
- if(button){button.disabled=false;button.textContent='Guardar movimiento compartido'}
- if(error){alert('No se pudo guardar el movimiento: '+error.message);return}
- event.target.reset();$('date').value=localDate();$('category').value='Materiales';
- await loadExpenses();alert('Movimiento guardado en la base de datos compartida.');
-});
-function refresh(){
- const total=expenses.reduce((s,x)=>s+Number(x.amount||0),0);
- const sum=cat=>expenses.filter(x=>x.category===cat).reduce((s,x)=>s+Number(x.amount||0),0);
- $('sBudget').textContent=money(projectData.budget);$('sSpent').textContent=money(total);$('sLeft').textContent=money(projectData.budget-total);
- $('sMaterials').textContent=money(sum('Materiales'));$('sLabor').textContent=money(sum('Personal'));
- $('sOther').textContent=money(expenses.filter(x=>!['Materiales','Personal'].includes(x.category)).reduce((s,x)=>s+Number(x.amount||0),0));
- renderHistory();renderReports();
-}
-function showTab(id,button){['entry','history','reports'].forEach(x=>$(x).hidden=x!==id);document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));button.classList.add('active');if(id==='history')renderHistory()}
-function categoryLabel(c){return c==='Personal'?'Mano de obra / Personal':c==='Otros'?'Otros gastos':c}
-function renderHistory(){
- if(!$('historyList'))return;
- const term=($('search').value||'').toLowerCase(),cat=$('filter').value;
- const list=expenses.filter(x=>(!cat||x.category===cat)&&(`${x.description} ${x.worker} ${x.notes} ${x.registeredBy}`.toLowerCase().includes(term)));
- $('historyList').innerHTML=list.length?list.map(x=>`<div class="item"><div style="min-width:0"><strong>${esc(x.description)}</strong><small>${esc(x.date)} · ${esc(categoryLabel(x.category))}${x.worker?' · Trabajador: '+esc(x.worker):''}</small>${x.days?`<small>Días trabajados: ${esc(x.days)}</small>`:''}${x.notes?`<small>${esc(x.notes)}</small>`:''}<small>Registrado por: ${esc(x.registeredBy)}</small></div><div style="text-align:right"><div class="amount">${money(x.amount)}</div><button class="danger" style="margin-top:8px;padding:7px 9px" onclick="removeExpense('${String(x.id).replace(/'/g,'')}')">Eliminar</button></div></div>`).join(''):'<div class="empty">No hay movimientos para mostrar.</div>';
-}
-function renderReports(){
- const cats=['Materiales','Personal','Transporte','Herramientas','Otros'];
- $('reportList').innerHTML=cats.map(c=>`<div class="item"><strong>${esc(categoryLabel(c))}</strong><span class="amount">${money(expenses.filter(x=>x.category===c).reduce((s,x)=>s+x.amount,0))}</span></div>`).join('');
-}
-async function removeExpense(id){
- if(!confirm('¿Desea eliminar este movimiento compartido? Esta acción afecta a todo el equipo.'))return;
- const {error}=await client.from('gastos').delete().eq('id',id);
- if(error){alert('No se pudo eliminar: '+error.message);return}
- await loadExpenses();
-}
-function exportCSV(){
- const rows=[['Fecha','Descripción','Categoría','Valor COP','Nombre trabajador','Días trabajados','Registrado por','Observaciones'],...expenses.map(x=>[x.date,x.description,categoryLabel(x.category),x.amount,x.worker,x.days,x.registeredBy,x.notes])];
- const csv='\uFEFF'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n');
- download(new Blob([csv],{type:'text/csv;charset=utf-8;'}),'movimientos-construccion.csv');
-}
-function backup(){download(new Blob([JSON.stringify({project:projectData.project,budget:projectData.budget,expenses},null,2)],{type:'application/json'}),'copia-contabilidad-construccion.json')}
-function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-async function restoreBackup(event){
- const file=event.target.files[0];if(!file)return;
- try{
-  const d=JSON.parse(await file.text());
-  if(!d||!Array.isArray(d.expenses))throw Error('Archivo no válido');
-  if(!confirm('Se agregarán los movimientos de la copia a la base de datos compartida. ¿Continuar?'))return;
-  let ok=0,failed=0;
-  for(const x of d.expenses){
-   const catMap={'Mano de obra':'Personal','Otros gastos':'Otros'};
-   const cat=catMap[x.category]||x.category;
-   if(!['Materiales','Personal','Transporte','Herramientas','Otros'].includes(cat)){failed++;continue}
-   const row={fecha:x.date||localDate(),descripcion:String(x.description||'Movimiento restaurado').slice(0,120),categoria:cat,valor:Math.max(0,Number(x.amount)||0),registrado_por:currentUser.email||'equipo',observaciones:[x.notes,x.quantity?`Cantidad: ${x.quantity} ${x.unit||''}`:'',x.person?`Proveedor/trabajador: ${x.person}`:''].filter(Boolean).join(' | ')||null,nombre_trabajador:String(x.worker||x.person||'').slice(0,120)||null,dias_trabajados:Math.max(0,Number(x.days)||0)};
-   const {error}=await client.from('gastos').insert(row);if(error)failed++;else ok++;
+
+async function saveProject(){
+  if(!currentUser){alert('Inicie sesión primero.');return}
+  const project=$('project').value.trim();
+  const budget=Math.max(0,Number($('budget').value)||0);
+  if(!project && !confirm('El nombre de la obra está vacío. ¿Desea guardar de todas formas?'))return;
+  setStatus('Guardando datos compartidos de la obra…');
+  const payload={id:'principal',nombre_proyecto:project,presupuesto_total:budget,actualizado_en:new Date().toISOString()};
+  const {error}=await client.from('configuracion_obra').upsert(payload,{onConflict:'id'});
+  if(error){
+    setStatus('No se pudieron guardar los datos de la obra: '+error.message);
+    alert('Error al guardar. Revise la tabla configuracion_obra y sus políticas RLS en Supabase.');
+    return;
   }
-  if(d.project||d.budget){projectData={project:String(d.project||''),budget:Number(d.budget)||0};$('project').value=projectData.project;$('budget').value=projectData.budget;try{localStorage.setItem('contabilidadConstruccionProjectV1',JSON.stringify(projectData))}catch(e){}}
-  await loadExpenses();alert(`Restauración terminada. Importados: ${ok}. No importados: ${failed}.`);
- }catch(e){alert('No se pudo leer la copia de seguridad.')}
- finally{event.target.value=''}
+  projectData={project,budget};
+  refresh();
+  setStatus('Datos de la obra guardados y compartidos correctamente.');
+  alert('Nombre y presupuesto guardados para todos los dispositivos del equipo.');
 }
+
+async function loadProject(){
+  setStatus('Cargando configuración compartida de la obra…');
+  const {data,error}=await client.from('configuracion_obra').select('id,nombre_proyecto,presupuesto_total').eq('id','principal').maybeSingle();
+  if(error){
+    setStatus('No se pudo cargar la configuración de la obra: '+error.message);
+    return;
+  }
+  if(data){
+    projectData={project:data.nombre_proyecto||'',budget:Number(data.presupuesto_total)||0};
+    $('project').value=projectData.project;
+    $('budget').value=projectData.budget||'';
+  }else{
+    projectData={project:'',budget:0};
+    $('project').value='';
+    $('budget').value='';
+  }
+  refresh();
+}
+
+async function signIn(event){
+  event.preventDefault();
+  $('loginMessage').textContent='Iniciando sesión…';
+  const {data,error}=await client.auth.signInWithPassword({
+    email:$('email').value.trim(),
+    password:$('password').value
+  });
+  if(error){
+    $('loginMessage').textContent='No se pudo iniciar sesión. Verifique el correo y la contraseña.';
+    return;
+  }
+  $('loginMessage').textContent='';
+  await showApp(data.user);
+}
+
+async function signOut(){
+  await client.auth.signOut();
+  currentUser=null;
+  expenses=[];
+  $('appArea').hidden=true;
+  $('loginCard').hidden=false;
+  $('password').value='';
+}
+
+async function showApp(user){
+  currentUser=user;
+  $('loginCard').hidden=true;
+  $('appArea').hidden=false;
+  $('signedInAs').textContent=user.email||'Usuario del equipo';
+  $('date').value=localDate();
+  await loadProject();
+  await loadExpenses();
+}
+
+async function loadExpenses(){
+  setStatus('Cargando gastos compartidos…');
+  const {data,error}=await client.from('gastos')
+    .select('id,fecha,descripcion,categoria,valor,registrado_por,observaciones,nombre_trabajador,dias_trabajados,created_at')
+    .order('fecha',{ascending:false})
+    .order('created_at',{ascending:false});
+  if(error){
+    setStatus('No se pudieron cargar los gastos: '+error.message+'. Revise las políticas RLS y permisos en Supabase.');
+    return;
+  }
+  expenses=(data||[]).map(x=>({
+    id:x.id,date:x.fecha,description:x.descripcion,category:x.categoria,
+    amount:Number(x.valor)||0,registeredBy:x.registrado_por||'',
+    notes:x.observaciones||'',worker:x.nombre_trabajador||'',
+    days:Number(x.dias_trabajados)||0
+  }));
+  setStatus('Base de datos conectada. Los movimientos y los datos de la obra son compartidos.');
+  refresh();
+}
+
+$('loginForm').addEventListener('submit',signIn);
+
+$('expenseForm').addEventListener('submit',async event=>{
+  event.preventDefault();
+  if(!currentUser){alert('Inicie sesión primero.');return}
+  const amount=Number($('amount').value);
+  const days=$('days').value===''?0:Number($('days').value);
+  if(!Number.isFinite(amount)||amount<=0){alert('Ingrese un valor válido.');return}
+  if(!Number.isFinite(days)||days<0){alert('Los días trabajados no pueden ser negativos.');return}
+  const row={
+    fecha:$('date').value,
+    descripcion:$('description').value.trim(),
+    categoria:$('category').value,
+    valor:amount,
+    registrado_por:currentUser.email||'equipo',
+    observaciones:$('notes').value.trim()||null,
+    nombre_trabajador:$('worker').value.trim()||null,
+    dias_trabajados:days
+  };
+  const button=event.submitter;
+  if(button){button.disabled=true;button.textContent='Guardando…'}
+  const {error}=await client.from('gastos').insert(row);
+  if(button){button.disabled=false;button.textContent='Guardar movimiento compartido'}
+  if(error){alert('No se pudo guardar el movimiento: '+error.message);return}
+  event.target.reset();
+  $('date').value=localDate();
+  $('category').value='Materiales';
+  await loadExpenses();
+  alert('Movimiento guardado en la base de datos compartida.');
+});
+
+function refresh(){
+  const total=expenses.reduce((s,x)=>s+Number(x.amount||0),0);
+  const sum=cat=>expenses.filter(x=>x.category===cat).reduce((s,x)=>s+Number(x.amount||0),0);
+  $('sBudget').textContent=money(projectData.budget);
+  $('sSpent').textContent=money(total);
+  $('sLeft').textContent=money(projectData.budget-total);
+  $('sMaterials').textContent=money(sum('Materiales'));
+  $('sLabor').textContent=money(sum('Personal'));
+  $('sOther').textContent=money(expenses.filter(x=>!['Materiales','Personal'].includes(x.category)).reduce((s,x)=>s+x.amount,0));
+  renderHistory();
+  renderReports();
+}
+
+function showTab(id,button){
+  ['entry','history','reports'].forEach(x=>$(x).hidden=x!==id);
+  document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));
+  button.classList.add('active');
+  if(id==='history')renderHistory();
+}
+function categoryLabel(c){
+  return c==='Personal'?'Mano de obra / Personal':c==='Otros'?'Otros gastos':c;
+}
+
+function renderHistory(){
+  if(!$('historyList'))return;
+  const term=($('search').value||'').toLowerCase();
+  const cat=$('filter').value;
+  const list=expenses.filter(x=>
+    (!cat||x.category===cat)&&
+    (`${x.description} ${x.worker} ${x.notes} ${x.registeredBy}`.toLowerCase().includes(term))
+  );
+  $('historyList').innerHTML=list.length?list.map(x=>`
+    <div class="item">
+      <div style="min-width:0">
+        <strong>${esc(x.description)}</strong>
+        <small>${esc(x.date)} · ${esc(categoryLabel(x.category))}${x.worker?' · Trabajador: '+esc(x.worker):''}</small>
+        ${x.days?`<small>Días trabajados: ${esc(x.days)}</small>`:''}
+        ${x.notes?`<small>${esc(x.notes)}</small>`:''}
+        <small>Registrado por: ${esc(x.registeredBy)}</small>
+      </div>
+      <div style="text-align:right">
+        <div class="amount">${money(x.amount)}</div>
+        <button class="danger" style="margin-top:8px;padding:7px 9px" onclick="removeExpense('${String(x.id).replace(/'/g,'')}')">Eliminar</button>
+      </div>
+    </div>`).join(''):'<div class="empty">No hay movimientos para mostrar.</div>';
+}
+
+function renderReports(){
+  const cats=['Materiales','Personal','Transporte','Herramientas','Otros'];
+  $('reportList').innerHTML=cats.map(c=>`
+    <div class="item">
+      <strong>${esc(categoryLabel(c))}</strong>
+      <span class="amount">${money(expenses.filter(x=>x.category===c).reduce((s,x)=>s+x.amount,0))}</span>
+    </div>`).join('');
+}
+
+async function removeExpense(id){
+  if(!confirm('¿Desea eliminar este movimiento compartido? Esta acción afecta a todo el equipo.'))return;
+  const {error}=await client.from('gastos').delete().eq('id',id);
+  if(error){alert('No se pudo eliminar: '+error.message);return}
+  await loadExpenses();
+}
+
+function exportCSV(){
+  const rows=[['Fecha','Descripción','Categoría','Valor COP','Nombre trabajador','Días trabajados','Registrado por','Observaciones'],
+    ...expenses.map(x=>[x.date,x.description,categoryLabel(x.category),x.amount,x.worker,x.days,x.registeredBy,x.notes])];
+  const csv='\uFEFF'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n');
+  download(new Blob([csv],{type:'text/csv;charset=utf-8;'}),'movimientos-construccion.csv');
+}
+function backup(){
+  download(new Blob([JSON.stringify({project:projectData.project,budget:projectData.budget,expenses},null,2)],{type:'application/json'}),'copia-contabilidad-construccion.json');
+}
+function download(blob,name){
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+async function restoreBackup(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  try{
+    const d=JSON.parse(await file.text());
+    if(!d||!Array.isArray(d.expenses))throw Error('Archivo no válido');
+    if(!confirm('Se agregarán los movimientos de la copia a la base de datos compartida. ¿Continuar?'))return;
+    let ok=0,failed=0;
+    for(const x of d.expenses){
+      const catMap={'Mano de obra':'Personal','Otros gastos':'Otros'};
+      const cat=catMap[x.category]||x.category;
+      if(!['Materiales','Personal','Transporte','Herramientas','Otros'].includes(cat)){failed++;continue}
+      const row={
+        fecha:x.date||localDate(),
+        descripcion:String(x.description||'Movimiento restaurado').slice(0,120),
+        categoria:cat,
+        valor:Math.max(0,Number(x.amount)||0),
+        registrado_por:currentUser.email||'equipo',
+        observaciones:[x.notes,x.quantity?`Cantidad: ${x.quantity} ${x.unit||''}`:'',x.person?`Proveedor/trabajador: ${x.person}`:''].filter(Boolean).join(' | ')||null,
+        nombre_trabajador:String(x.worker||x.person||'').slice(0,120)||null,
+        dias_trabajados:Math.max(0,Number(x.days)||0)
+      };
+      const {error}=await client.from('gastos').insert(row);
+      if(error)failed++;else ok++;
+    }
+    if(d.project!==undefined||d.budget!==undefined){
+      $('project').value=String(d.project||'');
+      $('budget').value=Number(d.budget)||0;
+      await saveProject();
+    }
+    await loadExpenses();
+    alert(`Restauración terminada. Importados: ${ok}. No importados: ${failed}.`);
+  }catch(e){
+    alert('No se pudo leer la copia de seguridad.');
+  }finally{
+    event.target.value='';
+  }
+}
+
 (async function init(){
- $('date').value=localDate();
- const {data}=await client.auth.getSession();
- if(data.session?.user)await showApp(data.session.user);
- client.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT'){currentUser=null;expenses=[];$('appArea').hidden=true;$('loginCard').hidden=false}});
+  $('date').value=localDate();
+  const {data}=await client.auth.getSession();
+  if(data.session?.user)await showApp(data.session.user);
+  client.auth.onAuthStateChange((event,session)=>{
+    if(event==='SIGNED_OUT'){
+      currentUser=null;expenses=[];
+      $('appArea').hidden=true;
+      $('loginCard').hidden=false;
+    }
+  });
 })();
 </script>
 </body>
