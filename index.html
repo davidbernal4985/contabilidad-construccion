@@ -1,1 +1,1220 @@
+<!DOCTYPE html>
 
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="theme-color" content="#090a0b">
+
+<title>BERNAL Construcción | Control de obra</title>
+
+<style>
+
+:root{--bg:#090a0b;--panel:#111315;--panel2:#17191b;--line:#34302a;--gold:#e8b94f;--gold2:#f6d783;--muted:#a8a39a;--white:#f7f3e9;--blue:#77b8e8;--green:#70c59b;--red:#e56c6c}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{margin:0;background:radial-gradient(ellipse at 10% 0%,#252016 0,transparent 32%),var(--bg);color:var(--white);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px}
+
+body:after{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;background:linear-gradient(112deg,transparent 0%,#f4d17b00 35%,#f4d17b30 49%,#fff2c055 51%,#d69d3200 63%,transparent 100%);transform:translateX(-120%);animation:goldSweep 1.65s cubic-bezier(.2,.7,.2,1) .15s 1 both}
+
+@keyframes goldSweep{0%{transform:translateX(-120%);opacity:0}12%{opacity:1}78%{opacity:.75}100%{transform:translateX(120%);opacity:0}}
+
+.brand-mark{filter:drop-shadow(0 0 5px #e9b74b30);animation:logoGlow 3.8s ease-in-out infinite alternate}
+
+@keyframes logoGlow{from{filter:drop-shadow(0 0 2px #e9b74b20)}to{filter:drop-shadow(0 0 11px #e9b74b70)}}
+
+@media(prefers-reduced-motion:reduce){body:after{animation:none;display:none}.brand-mark{animation:none}}
+
+button,input,select,textarea{font:inherit}
+
+button{cursor:pointer;transition:.18s}
+
+button:disabled{opacity:.55;cursor:wait}
+
+.shell{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
+
+.sidebar{background:linear-gradient(180deg,#111211,#080909);border-right:1px solid #393126;padding:24px 16px;display:flex;flex-direction:column;gap:20px}
+
+.brand{text-align:center;padding:5px 5px 22px;border-bottom:1px solid #302a20}
+
+.brand-mark{width:150px;height:100px;margin:0 auto 8px;display:block}
+
+.brand-name{font-family:Georgia,serif;letter-spacing:5px;font-size:25px;color:var(--gold2);font-weight:bold}
+
+.brand-sub{font-size:9px;letter-spacing:5px;color:#d7c8a2;margin-top:2px}
+
+.brand-tag{font-family:Georgia,serif;font-size:13px;color:#f1d58c;margin-top:16px}
+
+.nav{display:grid;gap:7px}
+
+.nav button{background:transparent;color:#d6d0c4;border:1px solid transparent;text-align:left;padding:13px 12px;border-radius:10px;display:flex;align-items:center;gap:12px}
+
+.nav button span{width:23px;text-align:center;color:var(--gold);font-size:18px}
+
+.nav button.active,.nav button:hover{background:linear-gradient(100deg,#e6b64d,#f4d17c);color:#17120a;box-shadow:0 4px 18px #c18a2d26}
+
+.nav button.active span,.nav button:hover span{color:#17120a}
+
+.side-foot{margin-top:auto;text-align:center;color:#a69b83;font-family:Georgia,serif;letter-spacing:2px;font-size:10px;border-top:1px solid #302a20;padding-top:18px}
+
+.main{min-width:0}
+
+.topbar{height:82px;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 28px;border-bottom:1px solid #2c2924;background:#0c0d0eeb;position:sticky;top:0;z-index:5;backdrop-filter:blur(16px)}
+
+.topbrand{display:flex;align-items:center;gap:12px;min-width:0}
+
+.mini-mark{width:65px;height:48px;flex:none}
+
+.topbrand h1{font-family:Georgia,serif;font-size:22px;color:var(--gold2);margin:0 0 5px}
+
+.topbrand p{color:#b9b3a7;margin:0;font-size:11px}
+
+.top-actions{display:flex;align-items:center;gap:10px}
+
+.pill{border:1px solid #4c4030;background:#131415;border-radius:10px;padding:10px 12px;color:#e8ddc5;white-space:nowrap}
+
+.user-pill{display:flex;align-items:center;gap:9px}
+
+.menu-toggle{display:none;background:#171819;color:var(--gold);border:1px solid #40372a;border-radius:9px;padding:10px}
+
+.content{padding:24px;max-width:1600px;margin:auto}
+
+.hidden{display:none!important}
+
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:15px;margin-bottom:17px}
+
+.eyebrow{color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-size:10px;font-weight:700}
+
+.section-head h2{font-family:Georgia,serif;font-size:27px;margin:5px 0 0}
+
+.muted{color:var(--muted)}
+
+.hero{display:grid;grid-template-columns:minmax(0,1fr) 275px;gap:15px;margin-bottom:16px}
+
+.project-card,.budget-card,.card,.stat{background:linear-gradient(145deg,#171819,#0f1011);border:1px solid #38332a;border-radius:14px;box-shadow:0 8px 24px #0000001f}
+
+.project-card{padding:22px;display:flex;align-items:center;gap:20px;overflow:hidden;position:relative}
+
+.project-card:after{content:"";position:absolute;right:-60px;top:-80px;width:250px;height:250px;border:1px solid #a87d3433;border-radius:50%;box-shadow:0 0 0 28px #a87d3410,0 0 0 58px #a87d3408;pointer-events:none}
+
+.project-icon{width:90px;height:90px;border-radius:12px;background:linear-gradient(145deg,#f5d078,#a97724);display:grid;place-items:center;color:#241908;font-size:35px;flex:none}
+
+.project-info{min-width:0;position:relative;z-index:1}
+
+.project-info label{font-size:12px;color:#c2b9a7}
+
+.project-info h2{font:bold 27px Georgia,serif;color:var(--gold2);margin:6px 0 8px;overflow-wrap:anywhere}
+
+.project-meta{color:#c8c0b2}
+
+.project-edit{display:inline-flex;margin-left:8px;background:#171819;border:1px solid #655033;color:var(--gold);border-radius:7px;padding:5px 8px}
+
+.budget-card{padding:19px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+
+.budget-card .label{color:#d2c8b5;display:flex;align-items:center;gap:8px}
+
+.budget-card strong{font:bold 24px Georgia,serif;color:var(--gold2);overflow-wrap:anywhere}
+
+.budget-card input{margin-top:5px}
+
+.progress-track{height:11px;background:#292a2c;border-radius:99px;overflow:hidden;margin-top:7px}
+
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#c88e2d,#f9d77d);border-radius:99px;transition:width .3s}
+
+.progress-line{display:flex;justify-content:space-between;gap:10px;color:#c8c0b2;font-size:11px;margin-top:7px}
+
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}
+
+.stat{padding:16px;min-width:0;position:relative;overflow:hidden}
+
+.stat:before{content:"";position:absolute;width:90px;height:90px;border-radius:50%;right:-40px;top:-40px;background:#e9b74b0c}
+
+.stat-top{display:flex;align-items:center;gap:10px;margin-bottom:13px}
+
+.stat-icon{width:42px;height:42px;border-radius:10px;background:#352914;border:1px solid #6a512b;display:grid;place-items:center;color:var(--gold2);font-size:21px;flex:none}
+
+.stat:nth-child(2) .stat-icon{background:#123126;border-color:#2b654d;color:var(--green)}
+
+.stat:nth-child(3) .stat-icon{background:#172b3a;border-color:#34526a;color:var(--blue)}
+
+.stat:nth-child(4) .stat-icon{background:#292116}
+
+.stat small{display:block;color:#bdb5a7;font-size:11px}
+
+.stat strong{display:block;font:bold clamp(17px,1.7vw,23px) Georgia,serif;overflow-wrap:anywhere}
+
+.stat .sub{font-size:10px;color:#a59d90;margin-top:7px}
+
+.charts{display:grid;grid-template-columns:1fr 1.15fr;gap:13px;margin-bottom:16px}
+
+.card{padding:18px;min-width:0}
+
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+
+.card-head h3{font:bold 17px Georgia,serif;margin:0}
+
+.card-head .symbol{color:var(--gold);margin-right:8px}
+
+.chart-wrap{min-height:215px;display:flex;align-items:center;justify-content:center}
+
+.donut-layout{display:flex;align-items:center;justify-content:space-around;gap:18px;width:100%;flex-wrap:wrap}
+
+.donut{width:175px;height:175px;border-radius:50%;position:relative;background:conic-gradient(#e9b74b 0% 0%,#77b8e8 0% 0%,#c98c54 0% 0%,#78808b 0% 0%,#3c5265 0% 0%)}
+
+.donut:after{content:"";position:absolute;inset:27px;background:#111314;border-radius:50%;border:1px solid #39332a}
+
+.donut-center{position:absolute;z-index:1;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;font:bold 16px Georgia,serif}
+
+.donut-center small{font:10px sans-serif;color:#b7afa1;margin-top:4px}
+
+.legend{display:grid;gap:11px;min-width:130px;flex:1}
+
+.legend-row{display:flex;align-items:center;gap:8px;font-size:12px;color:#d3cbbc}
+
+.legend-dot{width:9px;height:9px;border-radius:50%;flex:none}
+
+.legend-row .pct{margin-left:auto;color:#f1d58c}
+
+.bar-chart{width:100%;height:220px;display:flex;align-items:flex-end;gap:clamp(5px,1.5vw,15px);padding:15px 3px 25px;border-bottom:1px solid #4b463d;position:relative}
+
+.bar-col{height:100%;flex:1;display:flex;align-items:center;justify-content:flex-end;flex-direction:column;gap:7px;min-width:0;position:relative}
+
+.bar{width:min(100%,27px);min-height:2px;background:linear-gradient(180deg,#f5d17b,#c88e2d);border-radius:4px 4px 0 0;position:relative}
+
+.bar-label{font-size:10px;color:#bdb5a7;position:absolute;bottom:-21px}
+
+.bar-value{font-size:9px;color:#e4d5b2;white-space:nowrap;margin-bottom:3px}
+
+.grid-lines{position:absolute;inset:12px 0 25px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
+
+.grid-lines span{border-top:1px solid #ffffff0d}.table-wrap{width:100%;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:600px}
+th{text-align:left;color:#d5bd85;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:12px 10px;border-bottom:1px solid #4b4030}
+td{padding:13px 10px;border-bottom:1px solid #ffffff0c;color:#e9e2d4;font-size:12px}
+tbody tr:hover{background:#ffffff06}
+.amount{color:var(--gold2);font-weight:700;white-space:nowrap}
+.tag{display:inline-block;border-radius:20px;padding:5px 9px;background:#302719;border:1px solid #5d4827;color:#f0d48d;font-size:10px}
+.actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.btn{border:1px solid #51432d;border-radius:9px;padding:10px 13px;color:#f5d889;background:#1c1913}
+.btn:hover{box-shadow:0 0 18px #e8b94f38;border-color:#d9ae51;transform:translateY(-1px)}
+.btn.primary{background:linear-gradient(110deg,#c48a2c,#f3d17a);color:#171108;border-color:#e6bd61;font-weight:800}
+.btn.secondary{background:#17191b;color:#e8dfce;border-color:#414044}
+.btn.danger{background:#301818;color:#ffb0a8;border-color:#633331}
+.btn.small{font-size:11px;padding:7px 9px}
+input,select,textarea{width:100%;background:#0c0e0f;border:1px solid #403b32;color:#f5efdf;border-radius:9px;padding:12px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px #e8b94f15}
+input::placeholder,textarea::placeholder{color:#77756f}
+select option{background:#151617;color:#f5efdf}
+textarea{resize:vertical;min-height:85px}
+label{display:block;color:#d2c8b5;font-size:12px;margin-bottom:7px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{min-width:0}
+.field.full{grid-column:1/-1}
+.form-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.empty{padding:35px 12px;text-align:center;color:#aaa194}
+.empty .big{font-size:30px;color:#6c5a39;margin-bottom:10px}
+.notice{padding:12px 14px;border-radius:9px;border:1px solid #5b4828;background:#211b11;color:#f1dcae;font-size:12px;line-height:1.6}
+.notice.error{border-color:#673636;background:#261414;color:#ffb4ad}
+.notice.success{border-color:#285a42;background:#10241a;color:#a7e5c2}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#71d4a0;margin-right:6px}
+.status-dot.offline{background:#e7ad54}
+.section{margin-bottom:18px}
+.filters{display:grid;grid-template-columns:1.3fr 1fr 1fr auto;gap:10px;margin-bottom:14px}
+.login-screen{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(ellipse at center,#272016 0,transparent 52%),#090a0b}
+.login-card{width:min(100%,420px);padding:28px;background:linear-gradient(145deg,#191a1b,#0e0f10);border:1px solid #4b3b24;border-radius:18px;box-shadow:0 25px 80px #0008}
+.login-card .brand-mark{width:180px;height:120px;margin-bottom:10px}
+.login-card h2{text-align:center;font:26px Georgia,serif;color:var(--gold2);margin:10px 0 6px}
+.login-card .intro{text-align:center;color:#bcb3a3;font-size:12px;margin:0 0 23px}
+.login-card .field{margin-bottom:14px}
+.login-card .btn{width:100%;margin-top:8px}
+.login-card .help{text-align:center;color:#aaa194;font-size:11px;line-height:1.6;margin-top:16px}
+.password-wrap{display:flex;gap:7px}
+.password-wrap input{min-width:0}
+.password-wrap button{background:#1a1a18;color:#e9c76d;border:1px solid #4a3a23;border-radius:9px;padding:0 12px}
+.toast-container{position:fixed;right:18px;top:94px;z-index:200;display:grid;gap:8px;width:min(360px,calc(100vw - 36px))}
+.toast{padding:13px 15px;border:1px solid #6a542d;background:#19160f;color:#f4dfad;border-radius:10px;box-shadow:0 10px 35px #0008;animation:toastIn .2s ease}
+.toast.error{border-color:#70403a;background:#251312;color:#ffc0b7}
+.toast.success{border-color:#32624a;background:#102219;color:#b5f1ca}
+@keyframes toastIn{from{transform:translateY(-7px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-backdrop{position:fixed;inset:0;z-index:50;background:#000b;display:grid;place-items:center;padding:16px}
+.modal{width:min(100%,600px);max-height:90vh;overflow:auto;background:#141516;border:1px solid #5b4829;border-radius:15px;padding:22px;box-shadow:0 25px 80px #000b}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+.modal-head h3{font:22px Georgia,serif;color:var(--gold2);margin:0}
+.modal-close{background:#242526;border:1px solid #49443a;color:#e8dfce;border-radius:8px;padding:7px 10px}
+.small-note{font-size:11px;color:#a9a091;line-height:1.6}
+footer{padding:22px 10px;text-align:center;color:#817b70;font-size:10px;letter-spacing:1px}
+@media(max-width:1050px){
+.shell{grid-template-columns:215px minmax(0,1fr)}
+.sidebar{padding:18px 11px}
+.content{padding:18px}
+.hero{grid-template-columns:1fr}
+.stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+.charts{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+.shell{display:block}
+.sidebar{position:fixed;top:0;bottom:0;left:0;width:260px;z-index:30;transform:translateX(-105%);transition:transform .22s;box-shadow:10px 0 40px #0008}
+.sidebar.open{transform:translateX(0)}
+.menu-toggle{display:inline-block}
+.topbar{height:auto;min-height:72px;padding:12px 14px;gap:8px}
+.topbrand{gap:7px}
+.mini-mark{width:45px;height:38px}
+.topbrand h1{font-size:16px}
+.topbrand p{font-size:9px}
+.top-actions{gap:5px}
+.top-actions .pill{padding:8px;font-size:10px}
+.top-actions .user-pill{display:none}
+.content{padding:14px 11px}
+.section-head h2{font-size:23px}
+.section-head{align-items:flex-start}
+.project-card{padding:16px;gap:12px}
+.project-icon{width:58px;height:58px;font-size:25px}
+.project-info h2{font-size:21px}
+.budget-card{padding:16px}
+.stats{gap:8px}
+.stat{padding:12px}
+.stat-icon{width:35px;height:35px;font-size:17px}
+.stat-top{gap:7px;margin-bottom:10px}
+.stat strong{font-size:17px}
+.stat small{font-size:10px}
+.charts{gap:10px}
+.card{padding:13px}
+.donut{width:145px;height:145px}
+.donut:after{inset:23px}
+.bar-chart{gap:4px}
+.form-grid,.panel-grid{grid-template-columns:1fr}
+.field.full{grid-column:auto}
+.filters{grid-template-columns:1fr 1fr}
+.filters .wide{grid-column:1/-1}
+}
+@media(max-width:390px){
+.topbrand p{display:none}
+.topbrand h1{font-size:14px}
+.stats{grid-template-columns:1fr 1fr}
+.project-card{align-items:flex-start}
+.project-icon{width:45px;height:45px;font-size:20px}
+.project-info h2{font-size:18px}
+}
+</style>
+</head>
+<body>
+<div id="toastContainer" class="toast-container"></div>
+<div id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 180 120" role="img" aria-label="Edificios con apellido BERNAL">
+        <defs><linearGradient id="goldBuilding" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0b2"/><stop offset=".5" stop-color="#e8b94f"/><stop offset="1" stop-color="#a87524"/></linearGradient></defs>
+        <g fill="none" stroke="url(#goldBuilding)" stroke-width="2.4" stroke-linejoin="round"><path d="M8 83V42L27 30V83M27 83V18L44 7L61 18V83M61 83V35L81 22L101 35V83M101 83V45L120 33L139 45V83M139 83V57L158 46L172 54V83M8 83H172"/><path d="M44 7V83M27 30H61M81 22V83M61 35H101M120 33V83M101 45H139M158 46V83"/></g>
+        <g fill="#f0c763"><rect x="15" y="49" width="5" height="6"/><rect x="15" y="62" width="5" height="6"/><rect x="34" y="25" width="5" height="6"/><rect x="48" y="25" width="5" height="6"/><rect x="34" y="38" width="5" height="6"/><rect x="48" y="38" width="5" height="6"/><rect x="69" y="42" width="5" height="6"/><rect x="87" y="42" width="5" height="6"/><rect x="69" y="55" width="5" height="6"/><rect x="87" y="55" width="5" height="6"/><rect x="109" y="51" width="5" height="6"/><rect x="127" y="51" width="5" height="6"/><rect x="109" y="64" width="5" height="6"/><rect x="127" y="64" width="5" height="6"/></g>
+        <text x="90" y="105" text-anchor="middle" fill="url(#goldBuilding)" font-family="Georgia,serif" font-size="22" font-weight="bold" letter-spacing="4">BERNAL</text><path d="M34 112H146" stroke="#e8b94f" stroke-width="1.2"/>
+      </svg>
+      <div class="brand-tag">CONSTRUCCIÓN · CONTROL · CONFIANZA</div>
+    </div>
+    <h2>Control de obra</h2>
+    <p class="intro">Gestione sus gastos, presupuesto y equipo de trabajo.</p>
+    <form id="loginForm">
+      <div class="field"><label for="email">Correo electrónico</label><input id="email" type="email" autocomplete="username" placeholder="correo@ejemplo.com" required></div>
+      <div class="field"><label for="password">Contraseña</label><div class="password-wrap"><input id="password" type="password" autocomplete="current-password" placeholder="Su contraseña" required><button type="button" id="togglePassword">Ver</button></div></div>
+      <button class="btn primary" type="submit" id="loginButton">Ingresar a mi cuenta</button>
+      <button class="btn secondary" type="button" id="signupButton">Crear cuenta</button>
+      <p id="loginMessage" class="help">Los datos se guardan en su cuenta de obra.</p>
+    </form>
+  </div>
+</div>
+<div id="app" class="shell hidden">
+  <aside id="sidebar" class="sidebar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 180 120" role="img" aria-label="Edificios con apellido BERNAL">
+        <defs><linearGradient id="goldBuilding2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0b2"/><stop offset=".5" stop-color="#e8b94f"/><stop offset="1" stop-color="#a87524"/></linearGradient></defs>
+        <g fill="none" stroke="url(#goldBuilding2)" stroke-width="2.4" stroke-linejoin="round"><path d="M8 83V42L27 30V83M27 83V18L44 7L61 18V83M61 83V35L81 22L101 35V83M101 83V45L120 33L139 45V83M139 83V57L158 46L172 54V83M8 83H172"/><path d="M44 7V83M27 30H61M81 22V83M61 35H101M120 33V83M101 45H139M158 46V83"/></g>
+        <g fill="#f0c763"><rect x="15" y="49" width="5" height="6"/><rect x="15" y="62" width="5" height="6"/><rect x="34" y="25" width="5" height="6"/><rect x="48" y="25" width="5" height="6"/><rect x="34" y="38" width="5" height="6"/><rect x="48" y="38" width="5" height="6"/><rect x="69" y="42" width="5" height="6"/><rect x="87" y="42" width="5" height="6"/><rect x="69" y="55" width="5" height="6"/><rect x="87" y="55" width="5" height="6"/><rect x="109" y="51" width="5" height="6"/><rect x="127" y="51" width="5" height="6"/><rect x="109" y="64" width="5" height="6"/><rect x="127" y="64" width="5" height="6"/></g>
+        <text x="90" y="105" text-anchor="middle" fill="url(#goldBuilding2)" font-family="Georgia,serif" font-size="22" font-weight="bold" letter-spacing="4">BERNAL</text><path d="M34 112H146" stroke="#e8b94f" stroke-width="1.2"/>
+      </svg>
+      <div class="brand-name">BERNAL</div><div class="brand-sub">CONSTRUCCIÓN</div>
+    </div>
+    <nav class="nav">
+      <button class="active" data-page="dashboard"><span>▦</span>Resumen general</button>
+      <button data-page="expenses"><span>＋</span>Registrar gasto</button>
+      <button data-page="history"><span>▤</span>Historial de gastos</button>
+      <button data-page="workers"><span>♙</span>Trabajadores</button>
+      <button data-page="reports"><span>▥</span>Informes y documentos</button>
+      <button data-page="settings"><span>⚙</span>Configuración de obra</button>
+    </nav>
+    <div class="side-foot">BERNAL CONSTRUCCIÓN<br><br>CONTROL DE OBRA</div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="topbrand">
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+        <svg class="mini-mark" viewBox="0 0 180 120" aria-label="BERNAL">
+          <g fill="none" stroke="#e8b94f" stroke-width="3"><path d="M8 83V42L27 30V83M27 83V18L44 7L61 18V83M61 83V35L81 22L101 35V83M101 83V45L120 33L139 45V83M139 83V57L158 46L172 54V83M8 83H172"/></g>
+          <text x="90" y="105" text-anchor="middle" fill="#f6d783" font-family="Georgia,serif" font-size="22" font-weight="bold" letter-spacing="4">BERNAL</text>
+        </svg>
+        <div><h1>BERNAL Construcción</h1><p>Administración financiera de su obra</p></div>
+      </div>
+      <div class="top-actions">
+        <div class="pill" id="connectionStatus"><span class="status-dot offline"></span>Conectando</div>
+        <div class="pill user-pill"><span>♙</span><span id="userEmail">Usuario</span></div>
+        <button class="btn secondary small" id="syncButton">↻ Sincronizar</button>
+        <button class="btn secondary small" id="logoutButton">Salir</button>
+      </div>
+    </header>
+    <div class="content">
+      <section id="page-dashboard" class="page">
+        <div class="section-head"><div><div class="eyebrow">Panel financiero</div><h2>Resumen general</h2></div><div class="muted" id="todayLabel"></div></div>
+        <div class="hero">
+          <div class="project-card">
+            <div class="project-icon">⌂</div>
+            <div class="project-info"><label>Proyecto activo</label><h2 id="projectName">Mi construcción</h2><div class="project-meta">Presupuesto y control de gastos <button class="project-edit" data-goto="settings">Editar</button></div></div>
+          </div>
+          <div class="budget-card">
+            <div class="label">◈ Presupuesto aprobado</div><strong id="budgetDisplay">$0</strong>
+            <div class="progress-track"><div id="budgetProgress" class="progress-fill"></div></div>
+            <div class="progress-line"><span id="budgetUsed">0% utilizado</span><span id="budgetRemaining">$0 disponible</span></div>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="stat-top"><div class="stat-icon">$</div><small>Total de gastos</small></div><strong id="totalExpenses">$0</strong><div class="sub">Todos los registros</div></div>
+          <div class="stat"><div class="stat-top"><div class="stat-icon">↗</div><small>Saldo disponible</small></div><strong id="availableBalance">$0</strong><div class="sub">Presupuesto menos gastos</div></div>
+          <div class="stat"><div class="stat-top"><div class="stat-icon">▤</div><small>Gastos registrados</small></div><strong id="expenseCount">0</strong><div class="sub">Movimientos guardados</div></div>
+          <div class="stat"><div class="stat-top"><div class="stat-icon">♙</div><small>Días trabajados</small></div><strong id="daysCount">0</strong><div class="sub">Según registros de trabajadores</div></div>
+        </div>
+        <div id="budgetAlert" class="notice hidden section"></div>
+        <div class="charts">
+          <div class="card"><div class="card-head"><h3><span class="symbol">◉</span>Gastos por categoría</h3></div><div class="chart-wrap"><div class="donut-layout"><div class="donut" id="donutChart"><div class="donut-center"><span id="donutTotal">$0</span><small>GASTOS</small></div></div><div id="categoryLegend" class="legend"></div></div></div></div>
+          <div class="card"><div class="card-head"><h3><span class="symbol">▥</span>Gastos mensuales</h3><span class="muted">Últimos 6 meses</span></div><div id="monthlyChart" class="bar-chart"><div class="empty">Todavía no hay gastos registrados.</div></div></div>
+        </div>
+        <div class="card section"><div class="card-head"><h3><span class="symbol">◷</span>Gastos recientes</h3><button class="btn small" data-goto="history">Ver historial →</button></div><div id="recentExpenses" class="table-wrap"></div></div>
+      </section>
+      <section id="page-expenses" class="page hidden">
+        <div class="section-head"><div><div class="eyebrow">Registro financiero</div><h2>Registrar gasto</h2></div></div>
+        <div class="card">
+          <div class="notice section">Registre cada compra o pago de la obra. Los cambios se guardarán en la base de datos compartida de su cuenta.</div>
+          <form id="expenseForm">
+            <div class="form-grid">
+              <div class="field"><label for="expenseDate">Fecha del gasto *</label><input type="date" id="expenseDate" required></div>
+              <div class="field"><label for="expenseValue">Valor en pesos colombianos (COP) *</label><input type="number" id="expenseValue" min="1" step="1" placeholder="Ej. 250000" required></div>
+              <div class="field full"><label for="expenseDescription">Descripción del gasto *</label><input id="expenseDescription" maxlength="200" placeholder="Ej. Compra de cemento y arena" required></div>
+              <div class="field"><label for="expenseCategory">Categoría *</label><select id="expenseCategory" required><option value="">Seleccione categoría</option><option>Materiales</option><option>Mano de obra</option><option>Transporte</option><option>Herramientas</option><option>Maquinaria</option><option>Servicios públicos</option><option>Permisos y licencias</option><option>Alimentación</option><option>Acabados</option><option>Otros</option></select></div>
+              <div class="field"><label for="registeredBy">Registrado por</label><input id="registeredBy" maxlength="100" placeholder="Nombre de quien registra"></div>
+              <div class="field"><label for="workerName">Nombre del trabajador o proveedor</label><input id="workerName" maxlength="120" placeholder="Nombre completo"></div>
+              <div class="field"><label for="daysWorked">Días trabajados</label><input id="daysWorked" type="number" min="0" step="0.5" placeholder="Ej. 2"></div>
+              <div class="field full"><label for="expenseNotes">Observaciones</label><textarea id="expenseNotes" maxlength="1000" placeholder="Detalles adicionales, cantidades, recibos, etc."></textarea></div>
+            </div>
+            <div class="form-actions"><button class="btn primary" id="saveExpense" type="submit">Guardar gasto</button><button class="btn secondary" type="button" id="clearExpense">Limpiar formulario</button><button class="btn secondary" type="button" id="repeatWorker">Repetir último trabajador</button></div>
+          </form>
+        </div>
+      </section>
+      <section id="page-history" class="page hidden">
+        <div class="section-head"><div><div class="eyebrow">Movimientos de la obra</div><h2>Historial de gastos</h2></div><button class="btn" id="historyCsv">Exportar CSV</button></div>
+        <div class="card">
+          <div class="filters">
+            <input id="searchExpenses" class="wide" placeholder="Buscar descripción, persona...">
+            <select id="filterCategory"><option value="">Todas las categorías</option><option>Materiales</option><option>Mano de obra</option><option>Transporte</option><option>Herramientas</option><option>Maquinaria</option><option>Servicios públicos</option><option>Permisos y licencias</option><option>Alimentación</option><option>Acabados</option><option>Otros</option></select>
+            <input id="filterFrom" type="date" aria-label="Desde fecha">
+            <input id="filterTo" type="date" aria-label="Hasta fecha">
+          </div>
+          <div id="historyTotal" class="muted section"></div>
+          <div id="historyTable" class="table-wrap"></div>
+        </div>
+      </section>
+      <section id="page-workers" class="page hidden">
+        <div class="section-head"><div><div class="eyebrow">Personal de obra</div><h2>Trabajadores</h2></div><button class="btn" id="workersCsv">Exportar CSV</button></div>
+        <div class="card section"><div class="card-head"><h3>Resumen por trabajador o proveedor</h3></div><div id="workersTable" class="table-wrap"></div></div>
+        <div class="card"><div class="card-head"><h3>Registro de días trabajados</h3></div><div id="daysTable" class="table-wrap"></div></div>
+      </section>
+      <section id="page-reports" class="page hidden">
+        <div class="section-head"><div><div class="eyebrow">Documentación financiera</div><h2>Informes y documentos</h2></div></div>
+        <div class="panel-grid section">
+          <div class="card"><div class="card-head"><h3>Informe PDF</h3></div><p class="muted">Genere un documento con el presupuesto, el balance, los gastos por categoría y el detalle de los movimientos.</p><button class="btn primary" id="exportPdf">Generar informe PDF</button></div>
+          <div class="card"><div class="card-head"><h3>Copias de seguridad</h3></div><p class="muted">Exporte los registros a un archivo JSON para conservar una copia adicional de su información.</p><div class="actions"><button class="btn" id="exportJson">Descargar copia JSON</button><label class="btn secondary" for="importJson" style="margin:0;cursor:pointer">Restaurar copia</label><input id="importJson" class="hidden" type="file" accept=".json,application/json"></div></div>
+        </div>
+        <div class="card"><div class="card-head"><h3>Resumen por categoría</h3></div><div id="reportCategories" class="table-wrap"></div></div>
+      </section>
+      <section id="page-settings" class="page hidden">
+        <div class="section-head"><div><div class="eyebrow">Datos del proyecto</div><h2>Configuración de obra</h2></div></div>
+        <div class="card section">
+          <div class="card-head"><h3>Información del proyecto</h3></div>
+          <form id="settingsForm">
+            <div class="form-grid">
+              <div class="field full"><label for="settingsProject">Nombre del proyecto</label><input id="settingsProject" maxlength="160" placeholder="Ej. Construcción vivienda familiar" required></div>
+              <div class="field full"><label for="settingsBudget">Presupuesto total aprobado (COP)</label><input id="settingsBudget" type="number" min="0" step="1" placeholder="Ej. 150000000" required></div>
+            </div>
+            <div class="form-actions"><button class="btn primary" type="submit" id="saveSettings">Guardar configuración</button></div>
+          </form>
+        </div>
+        <div class="card section"><div class="card-head"><h3>Estado de sincronización</h3></div><p id="syncInfo" class="muted">Conectando con la base de datos...</p><button class="btn" id="settingsSync">Sincronizar ahora</button></div>
+        <div class="card"><div class="card-head"><h3>Cuenta</h3></div><p class="muted" id="settingsEmail"></p><button class="btn danger" id="settingsLogout">Cerrar sesión</button></div>
+      </section>
+      <footer>BERNAL CONSTRUCCIÓN · CONTROL FINANCIERO DE OBRA · COP</footer>
+    </div>
+  </main>
+</div>
+<div id="modalRoot"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script>const SUPABASE_URL='https://wyaihxwcewwxexxsyfnt.supabase.co';
+const SUPABASE_KEY='sb_publishable_3Y3sNRhDdAdmuHd3PdCHOw_jwVob1mb';
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const $=id=>document.getElementById(id);
+const money=n=>new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0}).format(Number(n)||0);
+const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const fmtDate=s=>{if(!s)return '—';const p=String(s).slice(0,10).split('-');return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:s};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const categories=['Materiales','Mano de obra','Transporte','Herramientas','Maquinaria','Servicios públicos','Permisos y licencias','Alimentación','Acabados','Otros'];
+const palette=['#e9b74b','#77b8e8','#c98c54','#78808b','#3c5265','#70c59b','#bd83db','#e56c6c','#d7c28d','#9a9a9a'];
+let expenses=[];
+let currentUser=null;
+let project={name:'',budget:0};
+let busy=false;
+
+function toast(message,type='success'){
+ const box=$('toastContainer');
+ const el=document.createElement('div');
+ el.className='toast '+type;
+ el.textContent=message;
+ box.appendChild(el);
+ setTimeout(()=>el.remove(),4500);
+}
+function setConnection(message,online=false){
+ $('connectionStatus').innerHTML=`<span class="status-dot ${online?'':'offline'}"></span>${esc(message)}`;
+ $('syncInfo').textContent=message;
+}
+function showPage(name){
+ document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));
+ const page=$('page-'+name);
+ if(page)page.classList.remove('hidden');
+ document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===name));
+ $('sidebar').classList.remove('open');
+ if(name==='history')renderHistory();
+ if(name==='workers')renderWorkers();
+ if(name==='reports')renderReports();
+}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.goto)));
+$('menuToggle').addEventListener('click',()=>$('sidebar').classList.toggle('open'));
+$('todayLabel').textContent=new Intl.DateTimeFormat('es-CO',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date());
+$('expenseDate').value=today();
+
+$('togglePassword').addEventListener('click',()=>{
+ const input=$('password');
+ input.type=input.type==='password'?'text':'password';
+ $('togglePassword').textContent=input.type==='password'?'Ver':'Ocultar';
+});
+
+$('loginForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ if(busy)return;
+ busy=true;
+ $('loginButton').disabled=true;
+ $('loginMessage').textContent='Verificando acceso…';
+ try{
+  const {data,error}=await db.auth.signInWithPassword({
+   email:$('email').value.trim(),
+   password:$('password').value
+  });
+  if(error)throw error;
+  await startApp(data.user);
+ }catch(err){
+  $('loginMessage').textContent='No se pudo ingresar: '+(err.message||'verifique sus datos');
+ }finally{
+  busy=false;
+  $('loginButton').disabled=false;
+ }
+});
+
+$('signupButton').addEventListener('click',async()=>{
+ const email=$('email').value.trim();
+ const password=$('password').value;
+ if(!email||!password){$('loginMessage').textContent='Escriba su correo y una contraseña para crear su cuenta.';return}
+ if(password.length<6){$('loginMessage').textContent='La contraseña debe tener al menos 6 caracteres.';return}
+ $('signupButton').disabled=true;
+ try{
+  const {data,error}=await db.auth.signUp({email,password});
+  if(error)throw error;
+  if(data.session&&data.user){
+   await startApp(data.user);
+  }else{
+   $('loginMessage').textContent='Cuenta creada. Revise su correo si Supabase solicita confirmar la cuenta antes de ingresar.';
+  }
+ }catch(err){
+  $('loginMessage').textContent='No se pudo crear la cuenta: '+err.message;
+ }finally{$('signupButton').disabled=false}
+});
+
+async function logout(){
+ await db.auth.signOut();
+ currentUser=null;
+ expenses=[];
+ $('app').classList.add('hidden');
+ $('loginScreen').classList.remove('hidden');
+}
+$('logoutButton').addEventListener('click',logout);
+$('settingsLogout').addEventListener('click',logout);
+
+async function startApp(user){
+ currentUser=user;
+ $('loginScreen').classList.add('hidden');
+ $('app').classList.remove('hidden');
+ $('userEmail').textContent=user.email||'Usuario';
+ $('settingsEmail').textContent=user.email||'';
+ await loadProject();
+ await loadExpenses();
+ showPage('dashboard');
+}
+
+async function loadProject(){
+ const {data,error}=await db.from('configuracion_obra')
+  .select('id,nombre_proyecto,presupuesto_total')
+  .eq('id','principal').maybeSingle();
+ if(error){
+  setConnection('Error de configuración',false);
+  toast('No se pudo leer la configuración de obra: '+error.message,'error');
+  return;
+ }
+ if(data){
+  project.name=data.nombre_proyecto||'';
+  project.budget=Number(data.presupuesto_total)||0;
+ }else{
+  project={name:'',budget:0};
+ }
+ $('settingsProject').value=project.name;
+ $('settingsBudget').value=project.budget||'';
+ $('projectName').textContent=project.name||'Mi construcción';
+ $('budgetDisplay').textContent=money(project.budget);
+}
+
+$('settingsForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ if(!currentUser)return;
+ const name=$('settingsProject').value.trim();
+ const budget=Number($('settingsBudget').value);
+ if(!name){toast('Escriba el nombre del proyecto.','error');return}
+ if(!Number.isFinite(budget)||budget<0){toast('El presupuesto no puede ser negativo.','error');return}
+ const button=$('saveSettings');
+ button.disabled=true;
+ try{
+  const {error}=await db.from('configuracion_obra').upsert({
+   id:'principal',
+   nombre_proyecto:name,
+   presupuesto_total:budget,
+   actualizado_en:new Date().toISOString()
+  },{onConflict:'id'});
+  if(error)throw error;
+  project={name,budget};
+  $('projectName').textContent=name;
+  $('budgetDisplay').textContent=money(budget);
+  refreshDashboard();
+  toast('Configuración guardada y sincronizada.');
+  showPage('dashboard');
+ }catch(err){
+  toast('No se pudo guardar: '+err.message,'error');
+ }finally{button.disabled=false}
+});
+
+async function loadExpenses(){
+ setConnection('Sincronizando…',false);
+ const {data,error}=await db.from('gastos')
+  .select('id,fecha,descripcion,categoria,valor,registrado_por,observaciones,nombre_trabajador,dias_trabajados,created_at')
+  .order('fecha',{ascending:false})
+  .order('created_at',{ascending:false});
+ if(error){
+  setConnection('Error al sincronizar',false);
+  toast('No se pudieron cargar los gastos: '+error.message,'error');
+  return;
+ }
+ expenses=(data||[]).map(x=>({
+  id:x.id,date:x.fecha||'',
+  description:x.descripcion||'',
+  category:x.categoria||'Otros',
+  amount:Number(x.valor)||0,
+  registeredBy:x.registrado_por||'',
+  notes:x.observaciones||'',
+  worker:x.nombre_trabajador||'',
+  days:Number(x.dias_trabajados)||0,
+  createdAt:x.created_at||''
+ }));
+ setConnection('Sincronizado',true);
+ refreshDashboard();
+ if(!$('page-history').classList.contains('hidden'))renderHistory();
+ if(!$('page-workers').classList.contains('hidden'))renderWorkers();
+ if(!$('page-reports').classList.contains('hidden'))renderReports();
+}
+async function syncAll(){
+ if(!currentUser)return;
+ await loadProject();
+ await loadExpenses();
+ toast('Se actualizaron los datos de la obra.');
+}
+$('syncButton').addEventListener('click',syncAll);
+$('settingsSync').addEventListener('click',syncAll);
+
+function totalExpenses(list=expenses){
+ return list.reduce((sum,x)=>sum+(Number(x.amount)||0),0);
+}
+function categoryTotals(){
+ const result={};
+ expenses.forEach(x=>{
+  const cat=categories.includes(x.category)?x.category:'Otros';
+  result[cat]=(result[cat]||0)+x.amount;
+ });
+ return Object.entries(result).sort((a,b)=>b[1]-a[1]);
+}
+function refreshDashboard(){
+ const total=totalExpenses();
+ const balance=project.budget-total;
+ const percent=project.budget>0?total/project.budget*100:0;
+ $('totalExpenses').textContent=money(total);
+ $('availableBalance').textContent=money(balance);
+ $('expenseCount').textContent=expenses.length;
+ $('daysCount').textContent=expenses.reduce((n,x)=>n+(x.days||0),0);
+ $('budgetDisplay').textContent=money(project.budget);
+ $('budgetUsed').textContent=`${percent.toFixed(1)}% utilizado`;
+ $('budgetRemaining').textContent=`${money(balance)} ${balance<0?'por encima del presupuesto':'disponible'}`;
+ $('budgetProgress').style.width=Math.min(100,Math.max(0,percent))+'%';
+ const alert=$('budgetAlert');
+ if(project.budget>0&&percent>=85){
+  alert.classList.remove('hidden');
+  alert.textContent=percent>=100
+   ?'Atención: los gastos han alcanzado o superado el presupuesto aprobado.'
+   :'Atención: ya se ha utilizado al menos el 85% del presupuesto aprobado.';
+ }else alert.classList.add('hidden');
+ renderDonut();
+ renderMonthly();
+ renderRecent();
+}
+function renderDonut(){
+ const list=categoryTotals();
+ const total=totalExpenses();
+ $('donutTotal').textContent=money(total);
+ let cursor=0;
+ const segments=list.map(([cat,val])=>{
+  const start=cursor;
+  cursor+=total?val/total*100:0;
+  const idx=categories.indexOf(cat);
+  return `${palette[idx<0?0:idx]} ${start}% ${cursor}%`;
+ });
+ $('donutChart').style.background=segments.length
+  ?`conic-gradient(${segments.join(',')})`
+  :'conic-gradient(#292929 0% 100%)';
+ $('categoryLegend').innerHTML=list.length?list.slice(0,6).map(([cat,val])=>{
+  const idx=categories.indexOf(cat);
+  const pct=total?val/total*100:0;
+  return `<div class="legend-row"><span class="legend-dot" style="background:${palette[idx<0?0:idx]}"></span><span>${esc(cat)}</span><span class="pct">${pct.toFixed(0)}%</span></div>`;
+ }).join(''):'<div class="muted">Sin gastos registrados</div>';
+}
+function renderMonthly(){
+ const now=new Date();
+ const months=[];
+ for(let i=5;i>=0;i--){
+  const d=new Date(now.getFullYear(),now.getMonth()-i,1);
+  months.push({year:d.getFullYear(),month:d.getMonth(),label:d.toLocaleDateString('es-CO',{month:'short'}),value:0});
+ }
+ expenses.forEach(x=>{
+  if(!x.date)return;
+  const d=new Date(x.date+'T12:00:00');
+  const found=months.find(m=>m.year===d.getFullYear()&&m.month===d.getMonth());
+  if(found)found.value+=x.amount;
+ });
+ const max=Math.max(...months.map(m=>m.value),1);
+ $('monthlyChart').innerHTML='<div class="grid-lines"><span></span><span></span><span></span><span></span></div>'+
+ months.map(m=>`<div class="bar-col"><div class="bar-value">${m.value?esc(money(m.value).replace(/\s?COP/,'').replace('$','')):''}</div><div class="bar" style="height:${m.value?Math.max(3,m.value/max*75):2}%"></div><div class="bar-label">${esc(m.label)}</div></div>`).join('');
+}
+function expenseRow(x,withActions=false){
+ return `<tr>
+ <td>${fmtDate(x.date)}</td>
+ <td>${esc(x.description)}</td>
+ <td><span class="tag">${esc(x.category)}</span></td>
+ <td>${esc(x.worker||'—')}</td>
+ <td class="amount">${money(x.amount)}</td>
+ ${withActions?`<td><button class="btn danger small" data-delete="${esc(x.id)}">Eliminar</button></td>`:''}
+ </tr>`;
+}
+function renderRecent(){
+ const list=expenses.slice(0,6);
+ $('recentExpenses').innerHTML=list.length
+ ?`<table><thead><tr><th>Fecha</th><th>Descripción</th><th>Categoría</th><th>Trabajador/proveedor</th><th>Valor</th></tr></thead><tbody>${list.map(x=>expenseRow(x)).join('')}</tbody></table>`
+ :'<div class="empty"><div class="big">▤</div>No hay gastos registrados todavía.</div>';
+}$('expenseForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ if(!currentUser){toast('Inicie sesión primero.','error');return}
+ const date=$('expenseDate').value;
+ const description=$('expenseDescription').value.trim();
+ const category=$('expenseCategory').value;
+ const amount=Number($('expenseValue').value);
+ const registeredBy=$('registeredBy').value.trim();
+ const worker=$('workerName').value.trim();
+ const days=Number($('daysWorked').value)||0;
+ const notes=$('expenseNotes').value.trim();
+ if(!date||!description||!category||!Number.isFinite(amount)||amount<=0){
+  toast('Complete la fecha, descripción, categoría y valor correctamente.','error');return
+ }
+ if(days<0){toast('Los días trabajados no pueden ser negativos.','error');return}
+ const btn=$('saveExpense');
+ btn.disabled=true;
+ btn.textContent='Guardando…';
+ try{
+  const {data,error}=await db.from('gastos').insert({
+   fecha:date,
+   descripcion:description,
+   categoria:category,
+   valor:amount,
+   registrado_por:registeredBy||currentUser.email||'',
+   observaciones:notes,
+   nombre_trabajador:worker,
+   dias_trabajados:days
+  }).select().single();
+  if(error)throw error;
+  expenses.unshift({
+   id:data.id,date:data.fecha||date,
+   description:data.descripcion||description,
+   category:data.categoria||category,
+   amount:Number(data.valor)||amount,
+   registeredBy:data.registrado_por||registeredBy,
+   notes:data.observaciones||notes,
+   worker:data.nombre_trabajador||worker,
+   days:Number(data.dias_trabajados)||days,
+   createdAt:data.created_at||new Date().toISOString()
+  });
+  expenses.sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.createdAt||'').localeCompare(a.createdAt||''));
+  refreshDashboard();
+  $('expenseForm').reset();
+  $('expenseDate').value=today();
+  toast('Gasto guardado correctamente.');
+  showPage('dashboard');
+ }catch(err){
+  toast('Error al guardar el gasto: '+err.message,'error');
+ }finally{
+  btn.disabled=false;
+  btn.textContent='Guardar gasto';
+ }
+});
+
+$('clearExpense').addEventListener('click',()=>{
+ $('expenseForm').reset();
+ $('expenseDate').value=today();
+});
+$('repeatWorker').addEventListener('click',()=>{
+ const last=expenses.find(x=>x.worker);
+ if(!last){toast('Todavía no hay un trabajador registrado.','error');return}
+ $('workerName').value=last.worker;
+ if(last.registeredBy)$('registeredBy').value=last.registeredBy;
+ toast('Se copiaron los datos del último trabajador.');
+});
+
+$('expenseDescription').addEventListener('input',()=>{
+ const d=$('expenseDescription').value.toLowerCase();
+ const map=[
+  [/cemento|arena|ladrillo|bloque|varilla|acero|grava|material|tubo|pintura/,'Materiales'],
+  [/jornal|salario|trabajador|albañil|maestro|ayudante|nómina|nomina/,'Mano de obra'],
+  [/taxi|gasolina|flete|transporte|camión|camion/,'Transporte'],
+  [/herramienta|taladro|martillo|broca|llave/,'Herramientas'],
+  [/alquiler.*máquina|maquinaria|excavadora|mezcladora/,'Maquinaria'],
+  [/agua|electricidad|energía|energia|internet|servicio público/,'Servicios públicos'],
+  [/licencia|permiso|curaduría|curaduria/,'Permisos y licencias'],
+  [/almuerzo|comida|alimentación|alimentacion/,'Alimentación'],
+  [/enchape|baldosa|puerta|ventana|grifería|griferia|acabado/,'Acabados']
+ ];
+ for(const [re,cat] of map){
+  if(re.test(d)){
+   $('expenseCategory').value=cat;
+   break;
+  }
+ }
+});
+
+function getFilteredExpenses(){
+ const q=$('searchExpenses').value.trim().toLowerCase();
+ const cat=$('filterCategory').value;
+ const from=$('filterFrom').value;
+ const to=$('filterTo').value;
+ return expenses.filter(x=>{
+  const searchable=[x.description,x.category,x.worker,x.registeredBy,x.notes].join(' ').toLowerCase();
+  return (!q||searchable.includes(q))&&
+   (!cat||x.category===cat)&&
+   (!from||x.date>=from)&&
+   (!to||x.date<=to);
+ });
+}
+function renderHistory(){
+ const list=getFilteredExpenses();
+ $('historyTotal').textContent=`${list.length} movimientos · Total filtrado: ${money(totalExpenses(list))}`;
+ $('historyTable').innerHTML=list.length
+ ?`<table><thead><tr><th>Fecha</th><th>Descripción</th><th>Categoría</th><th>Trabajador/proveedor</th><th>Valor</th><th>Acciones</th></tr></thead><tbody>${list.map(x=>expenseRow(x,true)).join('')}</tbody></table>`
+ :'<div class="empty"><div class="big">▤</div>No hay gastos que coincidan con la búsqueda.</div>';
+}
+['searchExpenses','filterCategory','filterFrom','filterTo'].forEach(id=>{
+ $(id).addEventListener('input',renderHistory);
+ $(id).addEventListener('change',renderHistory);
+});
+
+$('historyTable').addEventListener('click',async e=>{
+ const btn=e.target.closest('[data-delete]');
+ if(!btn)return;
+ const id=btn.dataset.delete;
+ const item=expenses.find(x=>String(x.id)===String(id));
+ if(!item)return;
+ if(!confirm(`¿Desea eliminar el gasto "${item.description}" por ${money(item.amount)}? Esta acción no se puede deshacer.`))return;
+ btn.disabled=true;
+ try{
+  const {error}=await db.from('gastos').delete().eq('id',id);
+  if(error)throw error;
+  expenses=expenses.filter(x=>String(x.id)!==String(id));
+  refreshDashboard();
+  renderHistory();
+  toast('Gasto eliminado.');
+ }catch(err){
+  toast('No se pudo eliminar: '+err.message,'error');
+  btn.disabled=false;
+ }
+});
+
+function renderWorkers(){
+ const grouped={};
+ expenses.forEach(x=>{
+  const name=x.worker.trim()||'Sin nombre asignado';
+  if(!grouped[name])grouped[name]={name,count:0,total:0,days:0,categories:new Set()};
+  grouped[name].count++;
+  grouped[name].total+=x.amount;
+  grouped[name].days+=x.days||0;
+  grouped[name].categories.add(x.category);
+ });
+ const list=Object.values(grouped).sort((a,b)=>b.total-a.total);
+ $('workersTable').innerHTML=list.length
+ ?`<table><thead><tr><th>Trabajador/proveedor</th><th>Registros</th><th>Días trabajados</th><th>Total registrado</th><th>Categorías</th></tr></thead><tbody>${list.map(x=>`<tr><td>${esc(x.name)}</td><td>${x.count}</td><td>${x.days}</td><td class="amount">${money(x.total)}</td><td>${esc([...x.categories].join(', '))}</td></tr>`).join('')}</tbody></table>`
+ :'<div class="empty">Los trabajadores aparecerán cuando registre gastos con su nombre.</div>';
+ const withDays=expenses.filter(x=>x.worker.trim()&&x.days>0);
+ $('daysTable').innerHTML=withDays.length
+ ?`<table><thead><tr><th>Fecha</th><th>Trabajador</th><th>Descripción</th><th>Días</th><th>Valor del registro</th></tr></thead><tbody>${withDays.map(x=>`<tr><td>${fmtDate(x.date)}</td><td>${esc(x.worker)}</td><td>${esc(x.description)}</td><td>${x.days}</td><td class="amount">${money(x.amount)}</td></tr>`).join('')}</tbody></table>`
+ :'<div class="empty">No hay registros con días trabajados.</div>';
+}
+
+function downloadFile(filename,content,type='text/plain;charset=utf-8'){
+ const blob=new Blob([content],{type});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');
+ a.href=url;
+ a.download=filename;
+ document.body.appendChild(a);
+ a.click();
+ a.remove();
+ setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+function csvCell(v){
+ return '"'+String(v??'').replace(/"/g,'""')+'"';
+}
+function exportCsv(list,filename){
+ const rows=[
+  ['Fecha','Descripción','Categoría','Valor COP','Registrado por','Trabajador o proveedor','Días trabajados','Observaciones'],
+  ...list.map(x=>[x.date,x.description,x.category,x.amount,x.registeredBy,x.worker,x.days,x.notes])
+ ];
+ const csv='\uFEFF'+rows.map(r=>r.map(csvCell).join(';')).join('\r\n');
+ downloadFile(filename,csv,'text/csv;charset=utf-8');
+}
+$('historyCsv').addEventListener('click',()=>exportCsv(getFilteredExpenses(),'bernal-historial-gastos.csv'));
+$('workersCsv').addEventListener('click',()=>{
+ const grouped={};
+ expenses.forEach(x=>{
+  const name=x.worker.trim()||'Sin nombre asignado';
+  if(!grouped[name])grouped[name]={name,count:0,total:0,days:0};
+  grouped[name].count++;
+  grouped[name].total+=x.amount;
+  grouped[name].days+=x.days||0;
+ });
+ const rows=[
+  ['Trabajador o proveedor','Número de registros','Días trabajados','Total COP'],
+  ...Object.values(grouped).map(x=>[x.name,x.count,x.days,x.total])
+ ];
+ downloadFile('bernal-trabajadores.csv','\uFEFF'+rows.map(r=>r.map(csvCell).join(';')).join('\r\n'),'text/csv;charset=utf-8');
+});function renderReports(){
+ const list=categoryTotals();
+ const total=totalExpenses();
+ $('reportCategories').innerHTML=list.length
+ ?`<table><thead><tr><th>Categoría</th><th>Movimientos</th><th>Total</th><th>Porcentaje</th></tr></thead><tbody>${list.map(([cat,val])=>{
+  const count=expenses.filter(x=>x.category===cat).length;
+  return `<tr><td>${esc(cat)}</td><td>${count}</td><td class="amount">${money(val)}</td><td>${total?(val/total*100).toFixed(1):0}%</td></tr>`;
+ }).join('')}</tbody></table>`
+ :'<div class="empty">No hay gastos para generar un resumen.</div>';
+}
+
+$('exportJson').addEventListener('click',()=>{
+ const backup={
+  formato:'BERNAL Construcción',
+  version:1,
+  fecha_exportacion:new Date().toISOString(),
+  proyecto:project,
+  gastos:expenses
+ };
+ downloadFile('bernal-construccion-respaldo.json',JSON.stringify(backup,null,2),'application/json;charset=utf-8');
+ toast('Copia de seguridad descargada.');
+});
+
+$('importJson').addEventListener('change',async e=>{
+ const file=e.target.files&&e.target.files[0];
+ if(!file)return;
+ try{
+  const parsed=JSON.parse(await file.text());
+  if(!parsed||!Array.isArray(parsed.gastos))throw new Error('El archivo no contiene una lista de gastos válida.');
+  const valid=parsed.gastos.every(x=>x&&x.date&&x.description&&Number.isFinite(Number(x.amount))&&Number(x.amount)>0);
+  if(!valid)throw new Error('Hay gastos con datos incompletos o valores inválidos.');
+  const count=parsed.gastos.length;
+  if(!confirm(`El archivo contiene ${count} gastos. Se agregarán a la base de datos actual. No se eliminarán los gastos existentes. ¿Continuar?`))return;
+  let imported=0;
+  for(let i=0;i<parsed.gastos.length;i+=100){
+   const batch=parsed.gastos.slice(i,i+100).map(x=>({
+    fecha:x.date,
+    descripcion:String(x.description).slice(0,200),
+    categoria:categories.includes(x.category)?x.category:'Otros',
+    valor:Number(x.amount),
+    registrado_por:String(x.registeredBy||currentUser?.email||'').slice(0,100),
+    observaciones:String(x.notes||'').slice(0,1000),
+    nombre_trabajador:String(x.worker||'').slice(0,120),
+    dias_trabajados:Math.max(0,Number(x.days)||0)
+   }));
+   const {error}=await db.from('gastos').insert(batch);
+   if(error)throw error;
+   imported+=batch.length;
+  }
+  if(parsed.proyecto&&confirm('La copia también contiene la configuración del proyecto. ¿Desea restaurarla?')){
+   const name=String(parsed.proyecto.name||'').slice(0,160);
+   const budget=Math.max(0,Number(parsed.proyecto.budget)||0);
+   if(name){
+    const {error}=await db.from('configuracion_obra').upsert({
+     id:'principal',nombre_proyecto:name,presupuesto_total:budget,actualizado_en:new Date().toISOString()
+    },{onConflict:'id'});
+    if(error)throw error;
+   }
+  }
+  await loadProject();
+  await loadExpenses();
+  toast(`Se importaron ${imported} gastos correctamente.`);
+ }catch(err){
+  toast('No se pudo restaurar la copia: '+err.message,'error');
+ }finally{
+  e.target.value='';
+ }
+});
+
+function drawPdf(){
+ if(!window.jspdf||!window.jspdf.jsPDF){
+  toast('No se pudo cargar el generador PDF. Compruebe su conexión a internet.','error');
+  return;
+ }
+ const {jsPDF}=window.jspdf;
+ const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+ const pageWidth=doc.internal.pageSize.getWidth();
+ const pageHeight=doc.internal.pageSize.getHeight();
+ const margin=14;
+ let y=18;
+ const gold=[194,145,53];
+ const dark=[24,24,22];
+ const gray=[100,96,87];
+ const fmt=n=>money(n);
+ const line=()=>{doc.setDrawColor(194,145,53);doc.setLineWidth(.35);doc.line(margin,y,pageWidth-margin,y);y+=6};
+ const checkPage=space=>{
+  if(y+space>pageHeight-17){
+   doc.addPage();
+   y=18;
+   headerSmall();
+  }
+ };
+ const headerSmall=()=>{
+  doc.setFillColor(...dark);
+  doc.rect(0,0,pageWidth,12,'F');
+  doc.setTextColor(246,215,131);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(9);
+  doc.text('BERNAL CONSTRUCCIÓN · CONTROL DE OBRA',margin,8);
+  doc.setTextColor(40,40,40);
+  doc.setFontSize(8);
+ };
+ doc.setFillColor(...dark);
+ doc.rect(0,0,pageWidth,47,'F');
+ doc.setTextColor(246,215,131);
+ doc.setFont('helvetica','bold');
+ doc.setFontSize(21);
+ doc.text('BERNAL',margin,19);
+ doc.setFont('helvetica','normal');
+ doc.setFontSize(11);
+ doc.text('CONSTRUCCIÓN',margin,26);
+ doc.setFontSize(9);
+ doc.setTextColor(240,231,208);
+ doc.text('INFORME FINANCIERO DE OBRA',margin,36);
+ doc.text(`Fecha de emisión: ${fmtDate(today())}`,pageWidth-margin,36,{align:'right'});
+ y=58;
+ doc.setTextColor(35,35,35);
+ doc.setFont('helvetica','bold');
+ doc.setFontSize(15);
+ doc.text(project.name||'Mi construcción',margin,y);
+ y+=8;
+ doc.setFont('helvetica','normal');
+ doc.setFontSize(9);
+ doc.setTextColor(...gray);
+ doc.text('Resumen de presupuesto y ejecución financiera',margin,y);
+ y+=10;
+ line();
+ const total=totalExpenses();
+ const balance=project.budget-total;
+ const percent=project.budget>0?total/project.budget*100:0;
+ const summary=[
+  ['PRESUPUESTO',fmt(project.budget)],
+  ['TOTAL GASTADO',fmt(total)],
+  ['SALDO',fmt(balance)],
+  ['EJECUCIÓN',`${percent.toFixed(1)}%`]
+ ];
+ const boxGap=3;
+ const boxWidth=(pageWidth-2*margin-3*boxGap)/4;
+ summary.forEach((item,i)=>{
+  const x=margin+i*(boxWidth+boxGap);
+  doc.setFillColor(247,243,233);
+  doc.roundedRect(x,y,boxWidth,19,2,2,'F');
+  doc.setTextColor(...gray);
+  doc.setFontSize(6.5);
+  doc.text(item[0],x+3,y+6);
+  doc.setTextColor(...gold);
+  doc.setFont('helvetica','bold');
+  doc.setFontSize(8);
+  const val=doc.splitTextToSize(item[1],boxWidth-6);
+  doc.text(val,x+3,y+13);
+  doc.setFont('helvetica','normal');
+ });
+ y+=27;
+ doc.setTextColor(35,35,35);
+ doc.setFont('helvetica','bold');
+ doc.setFontSize(12);
+ doc.text('Resumen por categoría',margin,y);
+ y+=6;
+ doc.setFillColor(...dark);
+ doc.rect(margin,y,pageWidth-2*margin,8,'F');
+ doc.setTextColor(246,215,131);
+ doc.setFontSize(8);
+ doc.text('Categoría',margin+2,y+5.3);
+ doc.text('Movimientos',margin+93,y+5.3);
+ doc.text('Total COP',pageWidth-margin-2,y+5.3,{align:'right'});
+ y+=8;
+ doc.setFont('helvetica','normal');
+ const cats=categoryTotals();
+ if(!cats.length){
+  doc.setTextColor(...gray);
+  doc.text('No hay gastos registrados.',margin+2,y+6);
+  y+=10;
+ }else{
+  cats.forEach(([cat,val],idx)=>{
+   checkPage(8);
+   if(idx%2===0){doc.setFillColor(249,247,241);doc.rect(margin,y,pageWidth-2*margin,8,'F')}
+   doc.setTextColor(50,50,50);
+   doc.setFontSize(8);
+   doc.text(String(cat),margin+2,y+5.3);
+   doc.text(String(expenses.filter(x=>x.category===cat).length),margin+93,y+5.3);
+   doc.text(fmt(val),pageWidth-margin-2,y+5.3,{align:'right'});
+   y+=8;
+  });
+ }
+ y+=7;
+ checkPage(25);
+ doc.setFont('helvetica','bold');
+ doc.setTextColor(35,35,35);
+ doc.setFontSize(12);
+ doc.text('Detalle de gastos',margin,y);
+ y+=7;
+ const columns=[
+  {title:'Fecha',x:margin,w:19},
+  {title:'Descripción',x:margin+20,w:57},
+  {title:'Categoría',x:margin+79,w:35},
+  {title:'Trabajador/proveedor',x:margin+115,w:37},
+  {title:'Valor COP',x:pageWidth-margin,w:0}
+ ];
+ doc.setFillColor(...dark);
+ doc.rect(margin,y,pageWidth-2*margin,8,'F');
+ doc.setTextColor(246,215,131);
+ doc.setFontSize(6.5);
+ doc.text('Fecha',columns[0].x+1,y+5.3);
+ doc.text('Descripción',columns[1].x+1,y+5.3);
+ doc.text('Categoría',columns[2].x+1,y+5.3);
+ doc.text('Trabajador/proveedor',columns[3].x+1,y+5.3);
+ doc.text('Valor',columns[4].x-1,y+5.3,{align:'right'});
+ y+=8;
+ doc.setFont('helvetica','normal');
+ const sorted=[...expenses].sort((a,b)=>(a.date||'').localeCompare(b.date||''));
+ sorted.forEach((x,idx)=>{
+  const desc=doc.splitTextToSize(String(x.description||''),55);
+  const worker=doc.splitTextToSize(String(x.worker||'—'),34);
+  const lines=Math.max(desc.length,worker.length,1);
+  const rowH=Math.max(8,lines*3.5+3);
+  checkPage(rowH);
+  if(idx%2===0){doc.setFillColor(249,247,241);doc.rect(margin,y,pageWidth-2*margin,rowH,'F')}
+  doc.setTextColor(55,55,55);
+  doc.setFontSize(6.5);
+  doc.text(fmtDate(x.date),columns[0].x+1,y+4.5);
+  doc.text(desc,columns[1].x+1,y+4.5);
+  doc.text(String(x.category||''),columns[2].x+1,y+4.5);
+  doc.text(worker,columns[3].x+1,y+4.5);
+  doc.text(fmt(x.amount),columns[4].x-1,y+4.5,{align:'right'});
+  y+=rowH;
+ });
+ y+=6;
+ checkPage(12);
+ doc.setDrawColor(...gold);
+ doc.line(margin,y,pageWidth-margin,y);
+ y+=6;
+ doc.setFont('helvetica','bold');
+ doc.setFontSize(10);
+ doc.setTextColor(35,35,35);
+ doc.text(`TOTAL DE GASTOS: ${fmt(total)}`,pageWidth-margin,y,{align:'right'});
+ const pages=doc.internal.getNumberOfPages();
+ for(let i=1;i<=pages;i++){
+  doc.setPage(i);
+  doc.setFont('helvetica','normal');
+  doc.setFontSize(7);
+  doc.setTextColor(...gray);
+  doc.text('BERNAL Construcción · Informe generado desde el control de obra',margin,pageHeight-7);
+  doc.text(`Página ${i} de ${pages}`,pageWidth-margin,pageHeight-7,{align:'right'});
+ }
+ const safeName=(project.name||'obra').replace(/[^a-z0-9áéíóúñ_-]/gi,'_').slice(0,50);
+ doc.save(`BERNAL_informe_${safeName}_${today()}.pdf`);
+}
+$('exportPdf').addEventListener('click',drawPdf);
+
+$('settingsProject').addEventListener('input',()=>{
+ const name=$('settingsProject').value.trim();
+ if(name)$('projectName').textContent=name;
+});async function initialize(){
+ try{
+  const {data,error}=await db.auth.getSession();
+  if(error)throw error;
+  if(data.session&&data.session.user){
+   await startApp(data.session.user);
+  }else{
+   $('loginScreen').classList.remove('hidden');
+   $('app').classList.add('hidden');
+   setConnection('Sin sesión',false);
+  }
+ }catch(err){
+  $('loginScreen').classList.remove('hidden');
+  $('app').classList.add('hidden');
+  $('loginMessage').textContent='No se pudo iniciar la aplicación: '+err.message;
+ }
+}
+
+db.auth.onAuthStateChange((event,session)=>{
+ if(event==='SIGNED_OUT'){
+  currentUser=null;
+  expenses=[];
+  $('app').classList.add('hidden');
+  $('loginScreen').classList.remove('hidden');
+ }
+});
+
+initialize();
+</script>
+</body>
+</html>
