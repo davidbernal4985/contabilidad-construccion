@@ -735,8 +735,9 @@ function expenseRow(x,withActions=false){
  <td>${esc(x.description)}</td>
  <td><span class="tag">${esc(x.category)}</span></td>
  <td>${esc(x.worker||'—')}</td>
- <td class="amount">${money(x.amount)}</td>
- ${withActions?`<td><button class="btn danger small" data-delete="${esc(x.id)}">Eliminar</button></td>`:''}
+ <td class="amount">${money(x.amount)}</
+${withActions?`<td><div class="actions"><button class="btn primary small" data-edit="${esc(x.id)}">Editar</button><button class="btn danger small" data-delete="${esc(x.id)}">Eliminar</button></div></td>`:''}
+
  </tr>`;
 }
 function renderRecent(){
