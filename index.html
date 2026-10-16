@@ -895,7 +895,14 @@ $('expenseDescription').addEventListener('input',()=>{
  }
 });
 
-function getFilteredExpenses(){
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('[data-edit]');
+  if (btn) {
+    e.preventDefault();
+    editExpense(btn.getAttribute('data-edit'));
+  }
+});
+ function getFilteredExpenses(){
  const q=$('searchExpenses').value.trim().toLowerCase();
  const cat=$('filterCategory').value;
  const from=$('filterFrom').value;
