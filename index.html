@@ -928,6 +928,12 @@ function renderHistory(){
 });
 
 $('historyTable').addEventListener('click',async e=>{
+ const editBtn=e.target.closest('[data-edit]');
+ if(editBtn){
+  e.preventDefault();
+  editExpense(editBtn.dataset.edit);
+  return;
+ }
  const btn=e.target.closest('[data-delete]');
  if(!btn)return;
  const id=btn.dataset.delete;
