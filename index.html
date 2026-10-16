@@ -473,6 +473,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const categories=['Materiales','Mano de obra','Transporte','Herramientas','Maquinaria','Servicios públicos','Permisos y licencias','Alimentación','Acabados','Otros'];
 const palette=['#e9b74b','#77b8e8','#c98c54','#78808b','#3c5265','#70c59b','#bd83db','#e56c6c','#d7c28d','#9a9a9a'];
 let expenses=[];
+let editingExpenseId=null;
 let currentUser=null;
 let project={name:'',budget:0};
 let busy=false;
@@ -739,7 +740,23 @@ function expenseRow(x,withActions=false){
 ${withActions?`<td><div class="actions"><button class="btn primary small" data-edit="${esc(x.id)}">Editar</button><button class="btn danger small" data-delete="${esc(x.id)}">Eliminar</button></div></td>`:''}
 
  </tr>`;
-}
+}function editExpense(id){
+ const x=expenses.find(g=>String(g.id)===String(id));
+ if(!x)return;
+
+ $('expenseDate').value=x.date;
+ $('expenseDescription').value=x.description;
+ $('expenseCategory').value=x.category;
+ $('expenseValue').value=x.amount;
+ $('registeredBy').value=x.registeredBy;
+ $('workerName').value=x.worker;
+ $('daysWorked').value=x.days||'';
+ $('expenseNotes').value=x.notes;
+
+ editingExpenseId=x.id;
+ $('saveExpense').textContent='Actualizar gasto';
+ showPage('expenses');
+} 
 function renderRecent(){
  const list=expenses.slice(0,6);
  $('recentExpenses').innerHTML=list.length
@@ -764,7 +781,52 @@ function renderRecent(){
  btn.disabled=true;
  btn.textContent='Guardando…';
  try{
-  const {data,error}=await db.from('gastos').insert({
+  if(editingExpenseId!==null){
+  const {data,error}=await db.from('gastos')
+    .update({
+      fecha:date,
+      descripcion:description,
+      categoria:category,
+      valor:amount,
+      registrado_por:registeredBy||currentUser.email||'',
+      observaciones:notes,
+      nombre_trabajador:worker,
+      dias_trabajados:days
+    })
+    .eq('id',editingExpenseId)
+    .select()
+    .single();
+
+  if(error)throw error;
+
+  const index=expenses.findIndex(
+    x=>String(x.id)===String(editingExpenseId)
+  );
+
+  if(index!==-1){
+    expenses[index]={
+      ...expenses[index],
+      id:data.id,
+      date:data.fecha||date,
+      description:data.descripcion||description,
+      category:data.categoria||category,
+      amount:Number(data.valor),
+      registeredBy:data.registrado_por||'',
+      notes:data.observaciones||'',
+      worker:data.nombre_trabajador||'',
+      days:Number(data.dias_trabajados)||0
+    };
+  }
+
+  editingExpenseId=null;
+  refreshDashboard();
+  $('expenseForm').reset();
+  $('expenseDate').value=today();
+  toast('Gasto actualizado correctamente.');
+  showPage('dashboard');
+  return;
+}
+   const {data,error}=await db.from('gastos').insert({
    fecha:date,
    descripcion:description,
    categoria:category,
